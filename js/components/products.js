@@ -241,6 +241,17 @@ const initProducts = ({ selector, initialProducts = [] }) => {
   const renderProducts = () => {
     const sortValue = $select.val();
     const sortedProducts = sortProducts(currentProducts, sortValue);
+
+    if (!sortedProducts.length) {
+      $list.empty().append(
+        $("<p>", {
+          class: "products__empty",
+          text: "לא נמצאו מוצרים",
+        }),
+      );
+      return;
+    }
+
     const productCards = sortedProducts.map((product) =>
       createProductCard(product, cartQuantities.get(product.id) || 0),
     );

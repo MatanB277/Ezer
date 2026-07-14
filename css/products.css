@@ -73,6 +73,15 @@
   margin-top: 12px;
 }
 
+.products__empty {
+  width: 100%;
+  margin: 48px 0;
+  color: var(--Dark-Brown, #36080A);
+  text-align: center;
+  font-size: 24px;
+  line-height: 28px;
+}
+
 .product-card {
   display: flex;
   flex-direction: column;
