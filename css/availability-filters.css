@@ -1,0 +1,47 @@
+.availability-filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.availability-filters__title {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.availability-filters__list {
+  display: flex;
+  gap: 12px
+}
+
+.availability-filter {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid var(--Beige, #EADED2);
+  border-radius: 40px;
+  color: var(--Dark-Brown, #36080A);
+  background: transparent;
+  text-align: center;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.availability-filter--selected {
+  justify-content: center;
+  border-color: transparent;
+  color: var(--White, #FFF);
+  background: var(--Bordo, #AF1E24);
+  font-weight: 700;
+}

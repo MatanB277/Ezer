@@ -1,0 +1,58 @@
+const categories = [
+  {
+    id: 1,
+    name: "הכל",
+    value: "",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 2,
+    name: "אורתופדיה",
+    value: "orthopedics",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 3,
+    name: "איכות חיים",
+    value: "quality-of-life",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 4,
+    name: "אמבטיה ושירותים",
+    value: "bathroom-and-toilets",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 5,
+    name: "אישפוז בית",
+    value: "home-hospitalization",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 6,
+    name: "לידה",
+    value: "birth",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 7,
+    name: "מוצרי ספיגה",
+    value: "absorbent-products",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+  {
+    id: 8,
+    name: "ניידות והליכה",
+    value: "mobility-and-walking",
+    icon: "assets/icons/wheelchair.svg",
+    selectedIcon: "assets/icons/wheelchair-selected.svg",
+  },
+];
