@@ -1,0 +1,151 @@
+.product-header__cart {
+  position: relative;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -60px;
+  z-index: 10;
+  width: 336px;
+  max-width: calc(100vw - 40px);
+  margin-top: 14.5px;
+  background: var(--White, #FFF);
+  box-shadow: 0 8px 24px rgba(54, 8, 10, 0.14);
+}
+
+.cart-dropdown[hidden] {
+  display: none;
+}
+
+.cart-dropdown__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+.cart-dropdown__title {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  text-align: right;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.cart-dropdown__close {
+  display: flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cart-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 8px 11px 16px;
+}
+
+.cart-dropdown__item-image {
+  width: 64px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.cart-dropdown__item-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-dropdown__item-name {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  text-align: right;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.cart-dropdown__item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-dropdown__quantity-control {
+  display: flex;
+  width: 88px;
+  height: 26px;
+  padding: 1.5px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #FFB490;
+  border-radius: 80px;
+  background: var(--White, #FFF);
+}
+
+.cart-dropdown__quantity-button {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 80px;
+  background: #FFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.cart-dropdown__quantity-add {
+  padding: 3px;
+}
+
+.cart-dropdown__quantity-remove {
+  padding: 5px;
+}
+
+.cart-dropdown__quantity-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.cart-dropdown__quantity-value {
+  width: 29px;
+  color: var(--Dark-Brown, #36080A);
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.cart-dropdown__item-price {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.36px;
+}
+
+.cart-dropdown__divider {
+  width: 100%;
+  margin: 8px 0;
+  border: 0;
+  border-top: 1px solid #E8E0DA;
+}
+
+.cart-dropdown-header__divider {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid #E8E0DA;
+}

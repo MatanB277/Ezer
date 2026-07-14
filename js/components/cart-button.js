@@ -2,6 +2,7 @@ const createCartButton = ({
   label = "העגלה שלי",
   price = 0,
   count = 0,
+  isExpanded = false,
   icon = "assets/icons/cart.svg",
 }) => {
   const $icon = $("<img>", {
@@ -33,25 +34,51 @@ const createCartButton = ({
     class: `cart-button${count === 0 ? " cart-button--empty" : ""}`,
     type: "button",
     disabled: count === 0,
+    "aria-controls": "cart-dropdown",
+    "aria-expanded": String(isExpanded),
     "aria-label": `${label}, ${count} מוצרים, ${price} שקלים`,
   }).append($icon, $label, $price, $count);
 };
 
-const initCartButton = ({ selector, price = 0, count = 0 }) => {
+const initCartButton = ({
+  selector,
+  price = 0,
+  count = 0,
+  onClick = () => false,
+}) => {
   const $container = $(selector);
+  let isExpanded = false;
 
   const setCart = ({ price: nextPrice, count: nextCount }) => {
-    $container.empty().append(
+    if (nextCount === 0) {
+      isExpanded = false;
+    }
+
+    $container.children(".cart-button").remove();
+    $container.prepend(
       createCartButton({
         price: nextPrice,
         count: nextCount,
+        isExpanded,
       }),
     );
   };
+
+  const setExpanded = (nextIsExpanded) => {
+    isExpanded = nextIsExpanded;
+    $container
+      .children(".cart-button")
+      .attr("aria-expanded", String(isExpanded));
+  };
+
+  $container.on("click", ".cart-button", () => {
+    setExpanded(onClick());
+  });
 
   setCart({ price, count });
 
   return {
     setCart,
+    setExpanded,
   };
 };

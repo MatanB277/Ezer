@@ -10,15 +10,37 @@ $(() => {
     search: "",
   };
 
-  const cartComponent = initCartButton({
+  let cartComponent;
+  let productsComponent;
+
+  const cartDropdown = initCartDropdown({
+    selector: ".product-header__cart",
+    onOpenChange: (isOpen) => {
+      cartComponent?.setExpanded(isOpen);
+    },
+    onQuantityIncrease: (productId) => {
+      productsComponent?.increaseCartQuantity(productId);
+    },
+    onProductRemove: (productId) => {
+      productsComponent?.removeFromCart(productId);
+    },
+  });
+
+  cartComponent = initCartButton({
     selector: ".product-header__cart",
     price: 0,
     count: 0,
+    onClick: () => cartDropdown.toggle(),
   });
 
-  const productsComponent = initProducts({
+  productsComponent = initProducts({
     selector: ".products",
-    onCartChange: ({ price, count }) => {
+    onCartChange: ({ price, count, items }) => {
+      if (count === 0) {
+        cartDropdown.close();
+      }
+
+      cartDropdown.setItems(items);
       cartComponent.setCart({ price, count });
     },
   });

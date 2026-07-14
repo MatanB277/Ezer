@@ -274,6 +274,7 @@ const initProducts = ({
   const updateCart = () => {
     let count = 0;
     let price = 0;
+    const items = [];
 
     cartQuantities.forEach((quantity, productId) => {
       const product = knownProducts.get(productId);
@@ -284,9 +285,17 @@ const initProducts = ({
 
       count += quantity;
       price += product.price * quantity;
+      items.push({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        quantity,
+        maxQuantity: product.maxQuantity,
+      });
     });
 
-    onCartChange({ count, price });
+    onCartChange({ count, price, items });
   };
 
   $sort.on("change", ".products__sort-select", () => {
@@ -349,11 +358,32 @@ const initProducts = ({
     updateCart();
   });
 
+  const increaseCartQuantity = (productId) => {
+    const product = knownProducts.get(productId);
+    const currentQuantity = cartQuantities.get(productId) || 0;
+
+    if (!product || currentQuantity >= product.maxQuantity) {
+      return;
+    }
+
+    cartQuantities.set(productId, currentQuantity + 1);
+    renderProducts();
+    updateCart();
+  };
+
+  const removeFromCart = (productId) => {
+    cartQuantities.delete(productId);
+    renderProducts();
+    updateCart();
+  };
+
   updateSelectWidth();
 
   setProducts(initialProducts);
 
   return {
     setProducts,
+    increaseCartQuantity,
+    removeFromCart,
   };
 };
