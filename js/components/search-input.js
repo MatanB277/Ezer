@@ -22,8 +22,15 @@ const createSearchInput = ({
   }).append($icon, $input);
 };
 
-const initSearchInput = ({ selector }) => {
+const initSearchInput = ({
+  selector,
+  onSearchChange = () => {},
+}) => {
   const $container = $(selector);
 
   $container.empty().append(createSearchInput({}));
+
+  $container.on("input", ".search-input__field", (event) => {
+    onSearchChange($(event.currentTarget).val());
+  });
 };

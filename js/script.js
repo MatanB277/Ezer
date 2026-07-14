@@ -7,6 +7,7 @@ $(() => {
   const filters = {
     category: isValidCategory ? categoryFromUrl : "",
     availability: [],
+    search: "",
   };
 
   const productsComponent = initProducts({
@@ -30,6 +31,10 @@ $(() => {
 
   initSearchInput({
     selector: ".product-header__search",
+    onSearchChange: (searchValue) => {
+      filters.search = searchValue;
+      updateProducts();
+    },
   });
 
   initCartButton({
