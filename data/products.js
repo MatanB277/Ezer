@@ -1,6 +1,7 @@
 const products = [
   {
     id: 1,
+    price: 120,
     name: "כרית תמיכה אורתופדית",
     description: "כרית נוחה לתמיכה נכונה בישיבה.",
     image: "assets/images/product-image.png",
@@ -9,6 +10,7 @@ const products = [
   },
   {
     id: 2,
+    price: 85,
     name: "חגורת גב מתכווננת",
     description: "חגורה גמישה לתמיכה באזור הגב.",
     image: "assets/images/product-image.png",
@@ -17,6 +19,7 @@ const products = [
   },
   {
     id: 3,
+    price: 60,
     name: "מגן ברך אלסטי",
     description: "מגן אלסטי לתמיכה יומיומית בברך.",
     image: "assets/images/product-image.png",
@@ -25,6 +28,7 @@ const products = [
   },
   {
     id: 4,
+    price: 110,
     name: "סד תמיכה לקרסול",
     description: "סד קל ונוח לייצוב הקרסול.",
     image: "assets/images/product-image.png",
@@ -33,6 +37,7 @@ const products = [
   },
   {
     id: 5,
+    price: 140,
     name: "כרית חימום חשמלית",
     description: "כרית חימום נעימה לשימוש ביתי.",
     image: "assets/images/product-image.png",
@@ -41,6 +46,7 @@ const products = [
   },
   {
     id: 6,
+    price: 95,
     name: "מגש אוכל מתכוונן",
     description: "מגש שימושי עם גובה מתכוונן.",
     image: "assets/images/product-image.png",
@@ -49,6 +55,7 @@ const products = [
   },
   {
     id: 7,
+    price: 35,
     name: "פותחן צנצנות ארגונומי",
     description: "פותחן נוח המקל על פתיחת מכסים.",
     image: "assets/images/product-image.png",
@@ -57,6 +64,7 @@ const products = [
   },
   {
     id: 8,
+    price: 90,
     name: "מכשיר עיסוי ידני",
     description: "מכשיר קומפקטי לעיסוי עדין ונוח.",
     image: "assets/images/product-image.png",
@@ -65,6 +73,7 @@ const products = [
   },
   {
     id: 9,
+    price: 220,
     name: "כיסא רחצה מתקפל",
     description: "כיסא יציב המתקפל לאחסון קל.",
     image: "assets/images/product-image.png",
@@ -73,6 +82,7 @@ const products = [
   },
   {
     id: 10,
+    price: 70,
     name: "ידית אחיזה לאמבטיה",
     description: "ידית בטיחותית לאחיזה בחדר הרחצה.",
     image: "assets/images/product-image.png",
@@ -81,6 +91,7 @@ const products = [
   },
   {
     id: 11,
+    price: 110,
     name: "הגבהה למושב אסלה",
     description: "מגביה נוח לשימוש בטוח ונגיש.",
     image: "assets/images/product-image.png",
@@ -89,6 +100,7 @@ const products = [
   },
   {
     id: 12,
+    price: 45,
     name: "שטיחון אמבטיה מונע החלקה",
     description: "שטיחון המסייע במניעת החלקה.",
     image: "assets/images/product-image.png",
@@ -97,6 +109,7 @@ const products = [
   },
   {
     id: 13,
+    price: 500,
     name: "מיטה סיעודית מתכווננת",
     description: "מיטה מתכווננת לטיפול ביתי נוח.",
     image: "assets/images/product-image.png",
@@ -105,6 +118,7 @@ const products = [
   },
   {
     id: 14,
+    price: 180,
     name: "שולחן צד למיטה",
     description: "שולחן נגיש ונוח לצד המיטה.",
     image: "assets/images/product-image.png",
@@ -113,6 +127,7 @@ const products = [
   },
   {
     id: 15,
+    price: 320,
     name: "מזרן למניעת פצעי לחץ",
     description: "מזרן ייעודי לפיזור לחץ יעיל.",
     image: "assets/images/product-image.png",
@@ -121,6 +136,7 @@ const products = [
   },
   {
     id: 16,
+    price: 150,
     name: "עמוד עירוי נייד",
     description: "עמוד עירוי יציב וקל להזזה.",
     image: "assets/images/product-image.png",
@@ -129,6 +145,7 @@ const products = [
   },
   {
     id: 17,
+    price: 100,
     name: "כרית הנקה",
     description: "כרית תומכת לנוחות בזמן ההנקה.",
     image: "assets/images/product-image.png",
@@ -137,6 +154,7 @@ const products = [
   },
   {
     id: 18,
+    price: 285,
     name: "משאבת חלב חשמלית",
     description: "משאבה יעילה ונוחה לשימוש יומיומי.",
     image: "assets/images/product-image.png",
@@ -145,6 +163,7 @@ const products = [
   },
   {
     id: 19,
+    price: 75,
     name: "כדור פיזיו ללידה",
     description: "כדור תרגול נוח לתקופת ההריון.",
     image: "assets/images/product-image.png",
@@ -153,6 +172,7 @@ const products = [
   },
   {
     id: 20,
+    price: 125,
     name: "חגורת תמיכה להריון",
     description: "חגורה תומכת להקלה במהלך ההריון.",
     image: "assets/images/product-image.png",
@@ -161,6 +181,7 @@ const products = [
   },
   {
     id: 21,
+    price: 65,
     name: "חיתולים למבוגרים מידה M",
     description: "מוצר ספיגה נוח במידה בינונית.",
     image: "assets/images/product-image.png",
@@ -169,6 +190,7 @@ const products = [
   },
   {
     id: 22,
+    price: 65,
     name: "חיתולים למבוגרים מידה L",
     description: "מוצר ספיגה נוח במידה גדולה.",
     image: "assets/images/product-image.png",
@@ -177,6 +199,7 @@ const products = [
   },
   {
     id: 23,
+    price: 40,
     name: "סדיניות חד פעמיות",
     description: "סדיניות סופגות להגנה על משטחים.",
     image: "assets/images/product-image.png",
@@ -185,6 +208,7 @@ const products = [
   },
   {
     id: 24,
+    price: 80,
     name: "תחתונים סופגים",
     description: "תחתונים נוחים להגנה ולביטחון.",
     image: "assets/images/product-image.png",
@@ -193,6 +217,7 @@ const products = [
   },
   {
     id: 25,
+    price: 350,
     name: "הליכון מתקפל",
     description: "הליכון יציב המתקפל בקלות.",
     image: "assets/images/product-image.png",
@@ -201,6 +226,7 @@ const products = [
   },
   {
     id: 26,
+    price: 480,
     name: "רולטור ארבעה גלגלים",
     description: "רולטור נוח לתנועה יציבה ובטוחה.",
     image: "assets/images/product-image.png",
@@ -209,6 +235,7 @@ const products = [
   },
   {
     id: 27,
+    price: 900,
     name: "כיסא גלגלים קל משקל",
     description: "כיסא נייד וקל לשימוש ולהובלה.",
     image: "assets/images/product-image.png",
@@ -217,6 +244,7 @@ const products = [
   },
   {
     id: 28,
+    price: 55,
     name: "מקל הליכה מתכוונן",
     description: "מקל יציב עם גובה מתכוונן.",
     image: "assets/images/product-image.png",
@@ -225,6 +253,7 @@ const products = [
   },
   {
     id: 29,
+    price: 160,
     name: "קביים קנדיות",
     description: "קביים נוחות עם תמיכה לאמות הידיים.",
     image: "assets/images/product-image.png",
@@ -233,6 +262,7 @@ const products = [
   },
   {
     id: 30,
+    price: 2500,
     name: "קלנועית מתקפלת",
     description: "קלנועית קומפקטית המתקפלת להובלה.",
     image: "assets/images/product-image.png",
