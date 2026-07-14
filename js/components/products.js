@@ -217,12 +217,17 @@ const sortProducts = (productItems, sortValue) => {
   );
 };
 
-const initProducts = ({ selector, initialProducts = [] }) => {
+const initProducts = ({
+  selector,
+  initialProducts = [],
+  onCartChange = () => {},
+}) => {
   const $products = $(selector);
   const $count = $products.find(".products__count");
   const $list = $products.find(".products__list");
   const $sort = $products.find(".products__sort");
   const cartQuantities = new Map();
+  const knownProducts = new Map();
   let currentProducts = [];
 
   $sort.append(createProductsSort());
@@ -261,8 +266,27 @@ const initProducts = ({ selector, initialProducts = [] }) => {
 
   const setProducts = (productItems) => {
     currentProducts = productItems;
+    productItems.forEach((product) => knownProducts.set(product.id, product));
     $count.text(`מציג ${productItems.length} מוצרים`);
     renderProducts();
+  };
+
+  const updateCart = () => {
+    let count = 0;
+    let price = 0;
+
+    cartQuantities.forEach((quantity, productId) => {
+      const product = knownProducts.get(productId);
+
+      if (!product) {
+        return;
+      }
+
+      count += quantity;
+      price += product.price * quantity;
+    });
+
+    onCartChange({ count, price });
   };
 
   $sort.on("change", ".products__sort-select", () => {
@@ -287,6 +311,7 @@ const initProducts = ({ selector, initialProducts = [] }) => {
 
     cartQuantities.set(product.id, 1);
     $(event.currentTarget).replaceWith(createQuantityControl(product, 1));
+    updateCart();
   });
 
   $list.on("click", ".product-card__quantity-add", (event) => {
@@ -307,6 +332,7 @@ const initProducts = ({ selector, initialProducts = [] }) => {
     $(event.currentTarget)
       .closest(".product-card__quantity-control")
       .replaceWith(createQuantityControl(product, nextQuantity));
+    updateCart();
   });
 
   $list.on("click", ".product-card__quantity-remove", (event) => {
@@ -320,6 +346,7 @@ const initProducts = ({ selector, initialProducts = [] }) => {
     $(event.currentTarget)
       .closest(".product-card__quantity-control")
       .replaceWith(createAddToCartButton());
+    updateCart();
   });
 
   updateSelectWidth();

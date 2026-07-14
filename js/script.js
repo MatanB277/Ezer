@@ -10,8 +10,17 @@ $(() => {
     search: "",
   };
 
+  const cartComponent = initCartButton({
+    selector: ".product-header__cart",
+    price: 0,
+    count: 0,
+  });
+
   const productsComponent = initProducts({
     selector: ".products",
+    onCartChange: ({ price, count }) => {
+      cartComponent.setCart({ price, count });
+    },
   });
 
   const updateProducts = () => {
@@ -35,11 +44,6 @@ $(() => {
       filters.search = searchValue;
       updateProducts();
     },
-  });
-
-  initCartButton({
-    selector: ".product-header__cart",
-    price: 0,
   });
 
   initCategories({

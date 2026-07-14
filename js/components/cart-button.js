@@ -1,6 +1,7 @@
 const createCartButton = ({
   label = "העגלה שלי",
   price = 0,
+  count = 0,
   icon = "assets/icons/cart.svg",
 }) => {
   const $icon = $("<img>", {
@@ -17,18 +18,40 @@ const createCartButton = ({
 
   const $price = $("<span>", {
     class: "cart-button__price",
-    text: `${price} ₪`,
+    text: `${price.toLocaleString("he-IL")} ₪`,
   });
 
+  const $count = count > 0
+    ? $("<span>", {
+      class: "cart-button__count",
+      text: count,
+      "aria-hidden": "true",
+    })
+    : null;
+
   return $("<button>", {
-    class: `cart-button${price === 0 ? " cart-button--empty" : ""}`,
+    class: `cart-button${count === 0 ? " cart-button--empty" : ""}`,
     type: "button",
-    "aria-label": `${label}, ${price} שקלים`,
-  }).append($icon, $label, $price);
+    disabled: count === 0,
+    "aria-label": `${label}, ${count} מוצרים, ${price} שקלים`,
+  }).append($icon, $label, $price, $count);
 };
 
-const initCartButton = ({ selector, price = 0 }) => {
+const initCartButton = ({ selector, price = 0, count = 0 }) => {
   const $container = $(selector);
 
-  $container.empty().append(createCartButton({ price }));
+  const setCart = ({ price: nextPrice, count: nextCount }) => {
+    $container.empty().append(
+      createCartButton({
+        price: nextPrice,
+        count: nextCount,
+      }),
+    );
+  };
+
+  setCart({ price, count });
+
+  return {
+    setCart,
+  };
 };
