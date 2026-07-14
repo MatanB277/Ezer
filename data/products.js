@@ -1,6 +1,7 @@
 const products = [
   {
     id: 1,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 120,
@@ -12,6 +13,7 @@ const products = [
   },
   {
     id: 2,
+    maxQuantity: 3,
     isCart: false,
     isAvailable: true,
     price: 85,
@@ -23,6 +25,7 @@ const products = [
   },
   {
     id: 3,
+    maxQuantity: 6,
     isCart: true,
     isAvailable: true,
     price: 60,
@@ -34,6 +37,7 @@ const products = [
   },
   {
     id: 4,
+    maxQuantity: 2,
     isCart: false,
     isAvailable: false,
     price: 110,
@@ -45,6 +49,7 @@ const products = [
   },
   {
     id: 5,
+    maxQuantity: 4,
     isCart: true,
     isAvailable: true,
     price: 140,
@@ -56,6 +61,7 @@ const products = [
   },
   {
     id: 6,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 95,
@@ -67,6 +73,7 @@ const products = [
   },
   {
     id: 7,
+    maxQuantity: 8,
     isCart: true,
     isAvailable: true,
     price: 35,
@@ -78,6 +85,7 @@ const products = [
   },
   {
     id: 8,
+    maxQuantity: 3,
     isCart: true,
     isAvailable: true,
     price: 90,
@@ -89,6 +97,7 @@ const products = [
   },
   {
     id: 9,
+    maxQuantity: 4,
     isCart: true,
     isAvailable: true,
     price: 220,
@@ -100,6 +109,7 @@ const products = [
   },
   {
     id: 10,
+    maxQuantity: 6,
     isCart: true,
     isAvailable: true,
     price: 70,
@@ -111,6 +121,7 @@ const products = [
   },
   {
     id: 11,
+    maxQuantity: 2,
     isCart: false,
     isAvailable: false,
     price: 110,
@@ -122,6 +133,7 @@ const products = [
   },
   {
     id: 12,
+    maxQuantity: 7,
     isCart: true,
     isAvailable: true,
     price: 45,
@@ -133,6 +145,7 @@ const products = [
   },
   {
     id: 13,
+    maxQuantity: 3,
     isCart: true,
     isAvailable: true,
     price: 500,
@@ -144,6 +157,7 @@ const products = [
   },
   {
     id: 14,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 180,
@@ -155,6 +169,7 @@ const products = [
   },
   {
     id: 15,
+    maxQuantity: 4,
     isCart: true,
     isAvailable: false,
     price: 320,
@@ -166,6 +181,7 @@ const products = [
   },
   {
     id: 16,
+    maxQuantity: 6,
     isCart: true,
     isAvailable: true,
     price: 150,
@@ -177,6 +193,7 @@ const products = [
   },
   {
     id: 17,
+    maxQuantity: 3,
     isCart: false,
     isAvailable: true,
     price: 100,
@@ -188,6 +205,7 @@ const products = [
   },
   {
     id: 18,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 285,
@@ -199,6 +217,7 @@ const products = [
   },
   {
     id: 19,
+    maxQuantity: 8,
     isCart: true,
     isAvailable: true,
     price: 75,
@@ -210,6 +229,7 @@ const products = [
   },
   {
     id: 20,
+    maxQuantity: 4,
     isCart: true,
     isAvailable: true,
     price: 125,
@@ -221,6 +241,7 @@ const products = [
   },
   {
     id: 21,
+    maxQuantity: 6,
     isCart: true,
     isAvailable: true,
     price: 65,
@@ -232,6 +253,7 @@ const products = [
   },
   {
     id: 22,
+    maxQuantity: 3,
     isCart: true,
     isAvailable: false,
     price: 65,
@@ -243,6 +265,7 @@ const products = [
   },
   {
     id: 23,
+    maxQuantity: 7,
     isCart: false,
     isAvailable: true,
     price: 40,
@@ -254,6 +277,7 @@ const products = [
   },
   {
     id: 24,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 80,
@@ -265,6 +289,7 @@ const products = [
   },
   {
     id: 25,
+    maxQuantity: 4,
     isCart: true,
     isAvailable: true,
     price: 350,
@@ -276,6 +301,7 @@ const products = [
   },
   {
     id: 26,
+    maxQuantity: 3,
     isCart: true,
     isAvailable: true,
     price: 480,
@@ -287,6 +313,7 @@ const products = [
   },
   {
     id: 27,
+    maxQuantity: 2,
     isCart: false,
     isAvailable: false,
     price: 900,
@@ -298,6 +325,7 @@ const products = [
   },
   {
     id: 28,
+    maxQuantity: 8,
     isCart: true,
     isAvailable: true,
     price: 55,
@@ -309,6 +337,7 @@ const products = [
   },
   {
     id: 29,
+    maxQuantity: 5,
     isCart: true,
     isAvailable: true,
     price: 160,
@@ -320,6 +349,7 @@ const products = [
   },
   {
     id: 30,
+    maxQuantity: 2,
     isCart: true,
     isAvailable: true,
     price: 2500,

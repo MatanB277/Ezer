@@ -23,7 +23,56 @@ const createProductAvailability = (availabilityValues = []) => {
   }).append(tags);
 };
 
-const createProductActions = (product) => {
+const createAddToCartButton = () => {
+  const $cartText = $("<span>", {
+    class: "product-card__add-to-cart-text",
+    text: "הוספה לעגלה",
+  });
+
+  return $("<button>", {
+    class: "product-card__add-to-cart-button",
+    type: "button",
+  }).append($cartText);
+};
+
+const createQuantityControl = (product, quantity) => {
+  const $addButton = $("<button>", {
+    class: "product-card__quantity-button product-card__quantity-add",
+    type: "button",
+    "aria-label": "הוספת יחידה",
+    disabled: quantity >= product.maxQuantity,
+  }).append(
+    $("<img>", {
+      src: "assets/icons/add.svg",
+      alt: "",
+      "aria-hidden": "true",
+    }),
+  );
+
+  const $quantity = $("<span>", {
+    class: "product-card__quantity",
+    text: quantity,
+    "aria-live": "polite",
+  });
+
+  const $trashButton = $("<button>", {
+    class: "product-card__quantity-button product-card__quantity-remove",
+    type: "button",
+    "aria-label": "הסרת המוצר מהעגלה",
+  }).append(
+    $("<img>", {
+      src: "assets/icons/trash.svg",
+      alt: "",
+      "aria-hidden": "true",
+    }),
+  );
+
+  return $("<div>", {
+    class: "product-card__quantity-control",
+  }).append($addButton, $quantity, $trashButton);
+};
+
+const createProductActions = (product, quantity) => {
   const $actions = $("<div>", {
     class: "product-card__actions",
   });
@@ -50,23 +99,17 @@ const createProductActions = (product) => {
   }
 
   if (product.isCart) {
-    const $cartText = $("<span>", {
-      class: "product-card__add-to-cart-text",
-      text: "הוספה לעגלה",
-    });
+    const $cartControl = quantity > 0
+      ? createQuantityControl(product, quantity)
+      : createAddToCartButton();
 
-    const $cartButton = $("<button>", {
-      class: "product-card__add-to-cart-button",
-      type: "button",
-    }).append($cartText);
-
-    $actions.append($cartButton);
+    $actions.append($cartControl);
   }
 
   return $actions;
 };
 
-const createProductCard = (product) => {
+const createProductCard = (product, quantity = 0) => {
   const $image = $("<img>", {
     class: "product-card__image",
     src: product.image,
@@ -94,7 +137,7 @@ const createProductCard = (product) => {
     class: "product-card__divider",
   });
 
-  const $actions = createProductActions(product);
+  const $actions = createProductActions(product, quantity);
 
   const $content = $("<div>", {
     class: "product-card__content",
@@ -171,6 +214,7 @@ const initProducts = ({ selector, initialProducts = [] }) => {
   const $count = $products.find(".products__count");
   const $list = $products.find(".products__list");
   const $sort = $products.find(".products__sort");
+  const cartQuantities = new Map();
   let currentProducts = [];
 
   $sort.append(createProductsSort());
@@ -189,7 +233,9 @@ const initProducts = ({ selector, initialProducts = [] }) => {
   const renderProducts = () => {
     const sortValue = $select.val();
     const sortedProducts = sortProducts(currentProducts, sortValue);
-    const productCards = sortedProducts.map(createProductCard);
+    const productCards = sortedProducts.map((product) =>
+      createProductCard(product, cartQuantities.get(product.id) || 0),
+    );
 
     $list.empty().append(productCards);
   };
@@ -203,6 +249,58 @@ const initProducts = ({ selector, initialProducts = [] }) => {
   $sort.on("change", ".products__sort-select", () => {
     updateSelectWidth();
     renderProducts();
+  });
+
+  const getSelectedProduct = (event) => {
+    const productId = Number(
+      $(event.currentTarget).closest(".product-card").attr("data-product-id"),
+    );
+
+    return currentProducts.find((product) => product.id === productId);
+  };
+
+  $list.on("click", ".product-card__add-to-cart-button", (event) => {
+    const product = getSelectedProduct(event);
+
+    if (!product) {
+      return;
+    }
+
+    cartQuantities.set(product.id, 1);
+    $(event.currentTarget).replaceWith(createQuantityControl(product, 1));
+  });
+
+  $list.on("click", ".product-card__quantity-add", (event) => {
+    const product = getSelectedProduct(event);
+
+    if (!product) {
+      return;
+    }
+
+    const currentQuantity = cartQuantities.get(product.id) || 1;
+
+    if (currentQuantity >= product.maxQuantity) {
+      return;
+    }
+
+    const nextQuantity = currentQuantity + 1;
+    cartQuantities.set(product.id, nextQuantity);
+    $(event.currentTarget)
+      .closest(".product-card__quantity-control")
+      .replaceWith(createQuantityControl(product, nextQuantity));
+  });
+
+  $list.on("click", ".product-card__quantity-remove", (event) => {
+    const product = getSelectedProduct(event);
+
+    if (!product) {
+      return;
+    }
+
+    cartQuantities.delete(product.id);
+    $(event.currentTarget)
+      .closest(".product-card__quantity-control")
+      .replaceWith(createAddToCartButton());
   });
 
   updateSelectWidth();

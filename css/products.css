@@ -86,7 +86,6 @@
 }
 
 .product-card:hover {
-  transform: translateY(-4px) scale(1.01);
   box-shadow: 6px 10px 22px rgba(0, 0, 0, 0.12);
 }
 
@@ -96,10 +95,6 @@
   height: 240px;
   object-fit: contain;
   transition: transform 240ms ease;
-}
-
-.product-card:hover .product-card__image {
-  transform: scale(1.03);
 }
 
 .product-card__content {
@@ -169,7 +164,7 @@
 
 .product-card__actions {
   display: flex;
-  justify-content: flex-center;
+  justify-content: center;
   gap: 16px;
 }
 
@@ -203,6 +198,7 @@
 
 .product-card__add-to-cart-button {
   display: flex;
+  width: 112px;
   padding: 5px 12px;
   justify-content: center;
   align-items: center;
@@ -231,6 +227,63 @@
   font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
   font-size: 17px;
   line-height: 26px;
+}
+
+.product-card__quantity-control {
+  display: flex;
+  width: 112px;
+  padding: 1.5px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 9px;
+  border: 1.5px solid #FFB490;
+  border-radius: 80px;
+  background: #C92229;
+}
+
+.product-card__quantity-button {
+  display: flex;
+  width: 33px;
+  height: 33px;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-radius: 80px;
+  background: #FFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+.product-card__quantity-add {
+  padding: 4px;
+}
+
+.product-card__quantity-remove {
+  padding: 6px;
+}
+
+.product-card__quantity-button:hover {
+  transform: scale(1.08);
+}
+
+.product-card__quantity-button:active {
+  transform: scale(0.94);
+}
+
+.product-card__quantity-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.product-card__quantity {
+  width: 22px;
+  color: var(--White, #FFF);
+  text-align: center;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 19px;
 }
 
 @keyframes product-card-enter {
