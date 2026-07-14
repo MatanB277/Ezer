@@ -47,9 +47,13 @@ const createProductCard = (product) => {
     text: `${product.price} ₪`,
   });
 
+  const $divider = $("<hr>", {
+    class: "product-card__divider",
+  });
+
   const $content = $("<div>", {
     class: "product-card__content",
-  }).append($title, $description, $availability, $price);
+  }).append($title, $description, $availability, $price, $divider);
 
   return $("<article>", {
     class: "product-card",
