@@ -14,6 +14,17 @@
     rgba(210, 35, 42, 0.3) 107.56%
   );
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.cart-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.03);
+  box-shadow: 0 5px 14px rgba(175, 30, 36, 0.14);
+}
+
+.cart-button:active {
+  transform: scale(0.97);
 }
 
 .cart-button__label,

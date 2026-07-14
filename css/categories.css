@@ -24,6 +24,15 @@
   padding: 0;
   border: 0;
   transform: translateY(-50%);
+  transition: transform 160ms ease;
+}
+
+.categories__arrow:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.categories__arrow:active {
+  transform: translateY(-50%) scale(0.9);
 }
 
 .categories__arrow[hidden] {
@@ -61,6 +70,10 @@
 
 .category-card:hover {
   border-color: var(--Bordo, #AF1E24);
+}
+
+.category-card:active {
+  transform: scale(0.97);
 }
 
 .category-card:focus-visible {

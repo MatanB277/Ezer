@@ -7,6 +7,12 @@
   border-radius: 20px;
   background-color: white;
   gap: 8px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.search-input:focus-within {
+  border-color: var(--Bordo, #AF1E24);
+  box-shadow: 0 0 0 3px rgba(175, 30, 36, 0.1);
 }
 
 .search-input__icon {
