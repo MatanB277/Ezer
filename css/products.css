@@ -91,7 +91,7 @@
 }
 
 .product-card__content {
-  padding: 8px 20px 20px 20px;
+  padding: 8px 20px 16px 20px;
 }
 
 .product-card__title {
@@ -153,6 +153,53 @@
   margin: 16px 0;
   border: 0;
   border-top: 1px solid #E8E0DA;
+}
+
+.product-card__actions {
+  display: flex;
+  justify-content: flex-center;
+  gap: 16px;
+}
+
+.product-card__location-button {
+  display: flex;
+  height: 36px;
+  padding: 8px 8px 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #987E7F;
+  border-radius: 20px;
+  background: var(--White, #FFF);
+  cursor: pointer;
+}
+
+.product-card__location-text {
+  color: var(--Dark-Brown, #36080A);
+  text-align: center;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 16px;
+  line-height: 20.8px;
+}
+
+.product-card__add-to-cart-button {
+  display: flex;
+  padding: 5px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--Other-Direction, linear-gradient(15deg, #FFB490 -2.9%, #F18477 5.74%, #D2232A 52.29%, #AF1E24 115.04%));
+  cursor: pointer;
+}
+
+.product-card__add-to-cart-text {
+  color: #FFF;
+  text-align: center;
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 17px;
+  line-height: 26px;
 }
 
 @media (min-width: 600px) {

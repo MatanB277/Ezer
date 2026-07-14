@@ -1,6 +1,8 @@
 const products = [
   {
     id: 1,
+    isCart: true,
+    isAvailable: true,
     price: 120,
     name: "כרית תמיכה אורתופדית",
     description: "כרית נוחה לתמיכה נכונה בישיבה.",
@@ -10,6 +12,8 @@ const products = [
   },
   {
     id: 2,
+    isCart: false,
+    isAvailable: true,
     price: 85,
     name: "חגורת גב מתכווננת",
     description: "חגורה גמישה לתמיכה באזור הגב.",
@@ -19,6 +23,8 @@ const products = [
   },
   {
     id: 3,
+    isCart: true,
+    isAvailable: true,
     price: 60,
     name: "מגן ברך אלסטי",
     description: "מגן אלסטי לתמיכה יומיומית בברך.",
@@ -28,6 +34,8 @@ const products = [
   },
   {
     id: 4,
+    isCart: false,
+    isAvailable: false,
     price: 110,
     name: "סד תמיכה לקרסול",
     description: "סד קל ונוח לייצוב הקרסול.",
@@ -37,6 +45,8 @@ const products = [
   },
   {
     id: 5,
+    isCart: true,
+    isAvailable: true,
     price: 140,
     name: "כרית חימום חשמלית",
     description: "כרית חימום נעימה לשימוש ביתי.",
@@ -46,6 +56,8 @@ const products = [
   },
   {
     id: 6,
+    isCart: true,
+    isAvailable: true,
     price: 95,
     name: "מגש אוכל מתכוונן",
     description: "מגש שימושי עם גובה מתכוונן.",
@@ -55,6 +67,8 @@ const products = [
   },
   {
     id: 7,
+    isCart: true,
+    isAvailable: true,
     price: 35,
     name: "פותחן צנצנות ארגונומי",
     description: "פותחן נוח המקל על פתיחת מכסים.",
@@ -64,6 +78,8 @@ const products = [
   },
   {
     id: 8,
+    isCart: true,
+    isAvailable: true,
     price: 90,
     name: "מכשיר עיסוי ידני",
     description: "מכשיר קומפקטי לעיסוי עדין ונוח.",
@@ -73,6 +89,8 @@ const products = [
   },
   {
     id: 9,
+    isCart: true,
+    isAvailable: true,
     price: 220,
     name: "כיסא רחצה מתקפל",
     description: "כיסא יציב המתקפל לאחסון קל.",
@@ -82,6 +100,8 @@ const products = [
   },
   {
     id: 10,
+    isCart: true,
+    isAvailable: true,
     price: 70,
     name: "ידית אחיזה לאמבטיה",
     description: "ידית בטיחותית לאחיזה בחדר הרחצה.",
@@ -91,6 +111,8 @@ const products = [
   },
   {
     id: 11,
+    isCart: false,
+    isAvailable: false,
     price: 110,
     name: "הגבהה למושב אסלה",
     description: "מגביה נוח לשימוש בטוח ונגיש.",
@@ -100,6 +122,8 @@ const products = [
   },
   {
     id: 12,
+    isCart: true,
+    isAvailable: true,
     price: 45,
     name: "שטיחון אמבטיה מונע החלקה",
     description: "שטיחון המסייע במניעת החלקה.",
@@ -109,6 +133,8 @@ const products = [
   },
   {
     id: 13,
+    isCart: true,
+    isAvailable: true,
     price: 500,
     name: "מיטה סיעודית מתכווננת",
     description: "מיטה מתכווננת לטיפול ביתי נוח.",
@@ -118,6 +144,8 @@ const products = [
   },
   {
     id: 14,
+    isCart: true,
+    isAvailable: true,
     price: 180,
     name: "שולחן צד למיטה",
     description: "שולחן נגיש ונוח לצד המיטה.",
@@ -127,6 +155,8 @@ const products = [
   },
   {
     id: 15,
+    isCart: true,
+    isAvailable: false,
     price: 320,
     name: "מזרן למניעת פצעי לחץ",
     description: "מזרן ייעודי לפיזור לחץ יעיל.",
@@ -136,6 +166,8 @@ const products = [
   },
   {
     id: 16,
+    isCart: true,
+    isAvailable: true,
     price: 150,
     name: "עמוד עירוי נייד",
     description: "עמוד עירוי יציב וקל להזזה.",
@@ -145,6 +177,8 @@ const products = [
   },
   {
     id: 17,
+    isCart: false,
+    isAvailable: true,
     price: 100,
     name: "כרית הנקה",
     description: "כרית תומכת לנוחות בזמן ההנקה.",
@@ -154,6 +188,8 @@ const products = [
   },
   {
     id: 18,
+    isCart: true,
+    isAvailable: true,
     price: 285,
     name: "משאבת חלב חשמלית",
     description: "משאבה יעילה ונוחה לשימוש יומיומי.",
@@ -163,6 +199,8 @@ const products = [
   },
   {
     id: 19,
+    isCart: true,
+    isAvailable: true,
     price: 75,
     name: "כדור פיזיו ללידה",
     description: "כדור תרגול נוח לתקופת ההריון.",
@@ -172,6 +210,8 @@ const products = [
   },
   {
     id: 20,
+    isCart: true,
+    isAvailable: true,
     price: 125,
     name: "חגורת תמיכה להריון",
     description: "חגורה תומכת להקלה במהלך ההריון.",
@@ -181,6 +221,8 @@ const products = [
   },
   {
     id: 21,
+    isCart: true,
+    isAvailable: true,
     price: 65,
     name: "חיתולים למבוגרים מידה M",
     description: "מוצר ספיגה נוח במידה בינונית.",
@@ -190,6 +232,8 @@ const products = [
   },
   {
     id: 22,
+    isCart: true,
+    isAvailable: false,
     price: 65,
     name: "חיתולים למבוגרים מידה L",
     description: "מוצר ספיגה נוח במידה גדולה.",
@@ -199,6 +243,8 @@ const products = [
   },
   {
     id: 23,
+    isCart: false,
+    isAvailable: true,
     price: 40,
     name: "סדיניות חד פעמיות",
     description: "סדיניות סופגות להגנה על משטחים.",
@@ -208,6 +254,8 @@ const products = [
   },
   {
     id: 24,
+    isCart: true,
+    isAvailable: true,
     price: 80,
     name: "תחתונים סופגים",
     description: "תחתונים נוחים להגנה ולביטחון.",
@@ -217,6 +265,8 @@ const products = [
   },
   {
     id: 25,
+    isCart: true,
+    isAvailable: true,
     price: 350,
     name: "הליכון מתקפל",
     description: "הליכון יציב המתקפל בקלות.",
@@ -226,6 +276,8 @@ const products = [
   },
   {
     id: 26,
+    isCart: true,
+    isAvailable: true,
     price: 480,
     name: "רולטור ארבעה גלגלים",
     description: "רולטור נוח לתנועה יציבה ובטוחה.",
@@ -235,6 +287,8 @@ const products = [
   },
   {
     id: 27,
+    isCart: false,
+    isAvailable: false,
     price: 900,
     name: "כיסא גלגלים קל משקל",
     description: "כיסא נייד וקל לשימוש ולהובלה.",
@@ -244,6 +298,8 @@ const products = [
   },
   {
     id: 28,
+    isCart: true,
+    isAvailable: true,
     price: 55,
     name: "מקל הליכה מתכוונן",
     description: "מקל יציב עם גובה מתכוונן.",
@@ -253,6 +309,8 @@ const products = [
   },
   {
     id: 29,
+    isCart: true,
+    isAvailable: true,
     price: 160,
     name: "קביים קנדיות",
     description: "קביים נוחות עם תמיכה לאמות הידיים.",
@@ -262,6 +320,8 @@ const products = [
   },
   {
     id: 30,
+    isCart: true,
+    isAvailable: true,
     price: 2500,
     name: "קלנועית מתקפלת",
     description: "קלנועית קומפקטית המתקפלת להובלה.",

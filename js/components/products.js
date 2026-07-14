@@ -23,6 +23,49 @@ const createProductAvailability = (availabilityValues = []) => {
   }).append(tags);
 };
 
+const createProductActions = (product) => {
+  const $actions = $("<div>", {
+    class: "product-card__actions",
+  });
+
+  if (product.isAvailable) {
+    const $locationIcon = $("<img>", {
+      class: "product-card__location-icon",
+      src: "assets/icons/location.svg",
+      alt: "",
+      "aria-hidden": "true",
+    });
+
+    const $locationText = $("<span>", {
+      class: "product-card__location-text",
+      text: "סניפים וזמינות",
+    });
+
+    const $locationButton = $("<button>", {
+      class: "product-card__location-button",
+      type: "button",
+    }).append($locationIcon, $locationText);
+
+    $actions.append($locationButton);
+  }
+
+  if (product.isCart) {
+    const $cartText = $("<span>", {
+      class: "product-card__add-to-cart-text",
+      text: "הוספה לעגלה",
+    });
+
+    const $cartButton = $("<button>", {
+      class: "product-card__add-to-cart-button",
+      type: "button",
+    }).append($cartText);
+
+    $actions.append($cartButton);
+  }
+
+  return $actions;
+};
+
 const createProductCard = (product) => {
   const $image = $("<img>", {
     class: "product-card__image",
@@ -51,9 +94,11 @@ const createProductCard = (product) => {
     class: "product-card__divider",
   });
 
+  const $actions = createProductActions(product);
+
   const $content = $("<div>", {
     class: "product-card__content",
-  }).append($title, $description, $availability, $price, $divider);
+  }).append($title, $description, $availability, $price, $divider, $actions);
 
   return $("<article>", {
     class: "product-card",
