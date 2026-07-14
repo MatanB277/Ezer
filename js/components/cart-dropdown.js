@@ -28,11 +28,35 @@ const createCartDropdown = () => {
     class: "cart-dropdown-header__divider",
   });
 
+  const $totalLabel = $("<span>", {
+    class: "cart-dropdown__total-label",
+    text: "סה\"כ לתשלום",
+  });
+
+  const $totalPrice = $("<span>", {
+    class: "cart-dropdown__total-price",
+    text: "0 ₪",
+  });
+
+  const $total = $("<div>", {
+    class: "cart-dropdown__total",
+  }).append($totalLabel, $totalPrice);
+
+  const $checkoutButton = $("<button>", {
+    class: "cart-dropdown__checkout",
+    type: "button",
+    text: "מעבר לתשלום",
+  });
+
+  const $footer = $("<div>", {
+    class: "cart-dropdown__footer",
+  }).append($checkoutButton);
+
   return $("<div>", {
     id: "cart-dropdown",
     class: "cart-dropdown",
     hidden: true,
-  }).append($header, $headerDivider, $body);
+  }).append($header, $headerDivider, $body, $total, $footer);
 };
 
 const createCartDropdownQuantity = (item) => {
@@ -120,6 +144,7 @@ const initCartDropdown = ({
   const $container = $(selector);
   const $dropdown = createCartDropdown();
   const $body = $dropdown.find(".cart-dropdown__body");
+  const $totalPrice = $dropdown.find(".cart-dropdown__total-price");
   let isOpen = false;
 
   const setOpen = (nextIsOpen) => {
@@ -168,6 +193,10 @@ const initCartDropdown = ({
 
   const setItems = (items) => {
     const content = [];
+    const totalPrice = items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
 
     items.forEach((item, index) => {
       content.push(createCartDropdownItem(item));
@@ -182,6 +211,7 @@ const initCartDropdown = ({
     });
 
     $body.empty().append(content);
+    $totalPrice.text(`${totalPrice.toLocaleString("he-IL")} ₪`);
   };
 
   return {
