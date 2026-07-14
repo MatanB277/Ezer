@@ -1,3 +1,28 @@
+const createProductAvailability = (availabilityValues = []) => {
+  const tags = availabilityValues.map((value) => {
+    const availabilityItem = productAvailability.find(
+      (item) => item.value === value,
+    );
+
+    if (!availabilityItem) {
+      return null;
+    }
+
+    return $("<span>", {
+      class: `product-card__availability-tag product-card__availability-tag--${value}`,
+      text: availabilityItem.name,
+    });
+  }).filter(Boolean);
+
+  if (!tags.length) {
+    return null;
+  }
+
+  return $("<div>", {
+    class: "product-card__availability",
+  }).append(tags);
+};
+
 const createProductCard = (product) => {
   const $image = $("<img>", {
     class: "product-card__image",
@@ -15,9 +40,16 @@ const createProductCard = (product) => {
     text: product.description,
   });
 
+  const $availability = createProductAvailability(product.availability);
+
+  const $price = $("<p>", {
+    class: "product-card__price",
+    text: `${product.price} ₪`,
+  });
+
   const $content = $("<div>", {
     class: "product-card__content",
-  }).append($title, $description);
+  }).append($title, $description, $availability, $price);
 
   return $("<article>", {
     class: "product-card",
