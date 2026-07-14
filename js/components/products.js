@@ -133,15 +133,23 @@ const createProductCard = (product, quantity = 0) => {
     text: `${product.price} ₪`,
   });
 
-  const $divider = $("<hr>", {
-    class: "product-card__divider",
-  });
+  let $footer = null;
 
-  const $actions = createProductActions(product, quantity);
+  if (product.isAvailable || product.isCart) {
+    const $divider = $("<hr>", {
+      class: "product-card__divider",
+    });
+
+    const $actions = createProductActions(product, quantity);
+
+    $footer = $("<div>", {
+      class: "product-card__footer",
+    }).append($divider, $actions);
+  }
 
   const $content = $("<div>", {
     class: "product-card__content",
-  }).append($title, $description, $availability, $price, $divider, $actions);
+  }).append($title, $description, $availability, $price, $footer);
 
   return $("<article>", {
     class: "product-card",
