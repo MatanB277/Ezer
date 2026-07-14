@@ -110,6 +110,10 @@
   padding: 3px;
 }
 
+.cart-dropdown__quantity-decrease {
+  padding: 3px;
+}
+
 .cart-dropdown__quantity-remove {
   padding: 5px;
 }

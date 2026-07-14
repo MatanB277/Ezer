@@ -54,13 +54,18 @@ const createCartDropdownQuantity = (item) => {
     text: item.quantity,
   });
 
-  const $trashButton = $("<button>", {
-    class: "cart-dropdown__quantity-button cart-dropdown__quantity-remove",
+  const isRemoveButton = item.quantity === 1;
+  const $decreaseButton = $("<button>", {
+    class: `cart-dropdown__quantity-button ${isRemoveButton
+      ? "cart-dropdown__quantity-remove"
+      : "cart-dropdown__quantity-decrease"}`,
     type: "button",
-    "aria-label": "הסרת המוצר מהעגלה",
+    "aria-label": isRemoveButton ? "הסרת המוצר מהעגלה" : "הפחתת יחידה",
   }).append(
     $("<img>", {
-      src: "assets/icons/trash.svg",
+      src: isRemoveButton
+        ? "assets/icons/trash.svg"
+        : "assets/icons/minus.svg",
       alt: "",
       "aria-hidden": "true",
     }),
@@ -68,7 +73,7 @@ const createCartDropdownQuantity = (item) => {
 
   return $("<div>", {
     class: "cart-dropdown__quantity-control",
-  }).append($addButton, $quantity, $trashButton);
+  }).append($addButton, $quantity, $decreaseButton);
 };
 
 const createCartDropdownItem = (item) => {
@@ -109,6 +114,7 @@ const initCartDropdown = ({
   selector,
   onOpenChange = () => {},
   onQuantityIncrease = () => {},
+  onQuantityDecrease = () => {},
   onProductRemove = () => {},
 }) => {
   const $container = $(selector);
@@ -148,6 +154,16 @@ const initCartDropdown = ({
     );
 
     onProductRemove(productId);
+  });
+
+  $dropdown.on("click", ".cart-dropdown__quantity-decrease", (event) => {
+    const productId = Number(
+      $(event.currentTarget)
+        .closest(".cart-dropdown__item")
+        .attr("data-product-id"),
+    );
+
+    onQuantityDecrease(productId);
   });
 
   const setItems = (items) => {

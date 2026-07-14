@@ -21,6 +21,9 @@ $(() => {
     onQuantityIncrease: (productId) => {
       productsComponent?.increaseCartQuantity(productId);
     },
+    onQuantityDecrease: (productId) => {
+      productsComponent?.decreaseCartQuantity(productId);
+    },
     onProductRemove: (productId) => {
       productsComponent?.removeFromCart(productId);
     },

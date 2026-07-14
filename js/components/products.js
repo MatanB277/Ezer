@@ -366,14 +366,41 @@ const initProducts = ({
       return;
     }
 
-    cartQuantities.set(productId, currentQuantity + 1);
-    renderProducts();
+    const nextQuantity = currentQuantity + 1;
+    const $productCard = $list.find(`[data-product-id="${productId}"]`);
+
+    cartQuantities.set(productId, nextQuantity);
+    $productCard
+      .find(".product-card__quantity-control")
+      .replaceWith(createQuantityControl(product, nextQuantity));
     updateCart();
   };
 
   const removeFromCart = (productId) => {
+    const $productCard = $list.find(`[data-product-id="${productId}"]`);
+
     cartQuantities.delete(productId);
-    renderProducts();
+    $productCard
+      .find(".product-card__quantity-control")
+      .replaceWith(createAddToCartButton());
+    updateCart();
+  };
+
+  const decreaseCartQuantity = (productId) => {
+    const product = knownProducts.get(productId);
+    const currentQuantity = cartQuantities.get(productId) || 0;
+
+    if (!product || currentQuantity <= 1) {
+      return;
+    }
+
+    const nextQuantity = currentQuantity - 1;
+    const $productCard = $list.find(`[data-product-id="${productId}"]`);
+
+    cartQuantities.set(productId, nextQuantity);
+    $productCard
+      .find(".product-card__quantity-control")
+      .replaceWith(createQuantityControl(product, nextQuantity));
     updateCart();
   };
 
@@ -384,6 +411,7 @@ const initProducts = ({
   return {
     setProducts,
     increaseCartQuantity,
+    decreaseCartQuantity,
     removeFromCart,
   };
 };
