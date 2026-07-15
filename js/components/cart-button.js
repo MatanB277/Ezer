@@ -35,6 +35,7 @@ const createCartButton = ({
     type: "button",
     disabled: count === 0,
     "aria-controls": "cart-dropdown",
+    "aria-haspopup": "dialog",
     "aria-expanded": String(isExpanded),
     "aria-label": `${label}, ${count} מוצרים, ${price} שקלים`,
   }).append($icon, $label, $price, $count);

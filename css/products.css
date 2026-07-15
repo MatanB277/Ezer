@@ -31,6 +31,12 @@
   align-items: center;
 }
 
+.products__sort-control:focus-within {
+  outline: 2px solid var(--Bordo, #AF1E24);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .products__sort-select,
 .products__sort-measure {
   color: var(--Dark-Brown, #36080A);

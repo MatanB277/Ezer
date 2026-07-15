@@ -15,9 +15,13 @@
 </head>
 <body>
   <main class="page-container">
-    <section class="product-header" aria-live="polite">
+    <section class="product-header">
       <div class="product-header__heading">
-        <h1 class="product-header__title"></h1>
+        <h1
+          class="product-header__title"
+          aria-live="polite"
+          aria-atomic="true"
+        ></h1>
         <img
           class="product-header__line"
           src="./assets/icons/horizontal-line.svg"
@@ -38,17 +42,19 @@
         type="button"
         data-scroll-direction="right"
         aria-label="גלילה ימינה"
+        aria-controls="categories-list"
       >
         <img src="./assets/icons/arrow-left.svg" alt="" aria-hidden="true">
       </button>
 
-      <div class="categories__list"></div>
+      <div id="categories-list" class="categories__list"></div>
 
       <button
         class="categories__arrow categories__arrow--left"
         type="button"
         data-scroll-direction="left"
         aria-label="גלילה שמאלה"
+        aria-controls="categories-list"
       >
         <img src="./assets/icons/arrow-left.svg" alt="" aria-hidden="true">
       </button>
@@ -56,17 +62,21 @@
 
     <hr class="filters-divider">
 
-    <section class="availability-filters" aria-label="זמינות מוצרים">
-      <h2 class="availability-filters__title">זמינות מוצרים</h2>
+    <section class="availability-filters" aria-labelledby="availability-title">
+      <h2 id="availability-title" class="availability-filters__title">זמינות מוצרים</h2>
       <div class="availability-filters__list"></div>
     </section>
 
-    <section class="products">
+    <section class="products" aria-label="מוצרים">
       <div class="product_header_container">
-        <div class="products__count" aria-live="polite"></div>
+        <div
+          class="products__count"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
         <div class="products__sort"></div>
       </div>
-      <div class="products__list"></div>
+      <div id="products-list" class="products__list"></div>
     </section>
   </main>
 

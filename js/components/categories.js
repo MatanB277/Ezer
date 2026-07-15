@@ -20,6 +20,7 @@ const createCategoryCard = (category, selectedValue) => {
     "data-icon": category.icon,
     "data-selected-icon": category.selectedIcon,
     "aria-pressed": String(isSelected),
+    "aria-controls": "products-list",
   }).append($icon, $name);
 };
 

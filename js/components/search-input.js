@@ -14,6 +14,7 @@ const createSearchInput = ({
     type: "search",
     placeholder,
     "aria-label": placeholder,
+    "aria-controls": "products-list",
     autocomplete: "off",
   });
 

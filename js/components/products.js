@@ -23,7 +23,7 @@ const createProductAvailability = (availabilityValues = []) => {
   }).append(tags);
 };
 
-const createAddToCartButton = () => {
+const createAddToCartButton = (product) => {
   const $cartText = $("<span>", {
     class: "product-card__add-to-cart-text",
     text: "הוספה לעגלה",
@@ -32,6 +32,7 @@ const createAddToCartButton = () => {
   return $("<button>", {
     class: "product-card__add-to-cart-button",
     type: "button",
+    "aria-label": `הוספה לעגלה: ${product.name}`,
   }).append($cartText);
 };
 
@@ -39,7 +40,7 @@ const createQuantityControl = (product, quantity) => {
   const $addButton = $("<button>", {
     class: "product-card__quantity-button product-card__quantity-add",
     type: "button",
-    "aria-label": "הוספת יחידה",
+    "aria-label": `הוספת יחידה: ${product.name}`,
     "aria-disabled": String(quantity >= product.maxQuantity),
   }).append(
     $("<img>", {
@@ -53,6 +54,8 @@ const createQuantityControl = (product, quantity) => {
     class: "product-card__quantity",
     text: quantity,
     "aria-live": "polite",
+    "aria-atomic": "true",
+    "aria-label": `כמות: ${quantity}`,
   });
 
   const isRemoveButton = quantity === 1;
@@ -61,7 +64,9 @@ const createQuantityControl = (product, quantity) => {
       ? "product-card__quantity-remove"
       : "product-card__quantity-decrease"}`,
     type: "button",
-    "aria-label": isRemoveButton ? "הסרת המוצר מהעגלה" : "הפחתת יחידה",
+    "aria-label": isRemoveButton
+      ? `הסרה מהעגלה: ${product.name}`
+      : `הפחתת יחידה: ${product.name}`,
   }).append(
     $("<img>", {
       src: isRemoveButton
@@ -74,6 +79,8 @@ const createQuantityControl = (product, quantity) => {
 
   return $("<div>", {
     class: "product-card__quantity-control",
+    role: "group",
+    "aria-label": `כמות עבור ${product.name}`,
   }).append($addButton, $quantity, $decreaseButton);
 };
 
@@ -98,6 +105,8 @@ const createProductActions = (product, quantity) => {
     const $locationButton = $("<button>", {
       class: "product-card__location-button",
       type: "button",
+      "aria-label": `סניפים וזמינות: ${product.name}`,
+      "aria-disabled": "true",
     }).append($locationIcon, $locationText);
 
     $actions.append($locationButton);
@@ -106,7 +115,7 @@ const createProductActions = (product, quantity) => {
   if (product.isCart) {
     const $cartControl = quantity > 0
       ? createQuantityControl(product, quantity)
-      : createAddToCartButton();
+      : createAddToCartButton(product);
 
     $actions.append($cartControl);
   }
@@ -122,6 +131,7 @@ const createProductCard = (product, quantity = 0) => {
   });
 
   const $title = $("<h3>", {
+    id: `product-title-${product.id}`,
     class: "product-card__title",
     text: product.name,
   });
@@ -159,6 +169,7 @@ const createProductCard = (product, quantity = 0) => {
   return $("<article>", {
     class: "product-card",
     "data-product-id": product.id,
+    "aria-labelledby": `product-title-${product.id}`,
   }).append($image, $content);
 };
 
@@ -172,7 +183,7 @@ const createProductsSort = () => {
   const $select = $("<select>", {
     id: "products-sort",
     class: "products__sort-select",
-    "aria-label": "מיון מוצרים",
+    "aria-controls": "products-list",
   });
 
   const $measure = $("<span>", {
@@ -237,6 +248,7 @@ const initProducts = ({
         $("<p>", {
           class: "products__empty",
           text: "לא נמצאו מוצרים",
+          role: "status",
         }),
       );
       return;
@@ -283,7 +295,7 @@ const initProducts = ({
     );
     const $nextControl = quantity > 0
       ? createQuantityControl(product, quantity)
-      : createAddToCartButton();
+      : createAddToCartButton(product);
 
     $currentControl.replaceWith($nextControl);
   };

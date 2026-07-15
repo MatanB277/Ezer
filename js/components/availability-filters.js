@@ -10,6 +10,7 @@ const createAvailabilityFilter = (availability, selectedValues) => {
     text: availability.name,
     "data-value": availability.value,
     "aria-pressed": String(isSelected),
+    "aria-controls": "products-list",
   });
 };
 

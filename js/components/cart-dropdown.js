@@ -1,5 +1,6 @@
 const createCartDropdown = () => {
   const $title = $("<h2>", {
+    id: "cart-dropdown-title",
     class: "cart-dropdown__title",
     text: "העגלה שלי",
   });
@@ -22,6 +23,9 @@ const createCartDropdown = () => {
 
   const $body = $("<div>", {
     class: "cart-dropdown__body",
+    role: "region",
+    "aria-label": "מוצרים בעגלה",
+    tabindex: 0,
   });
 
   const $headerDivider = $("<hr>", {
@@ -40,6 +44,7 @@ const createCartDropdown = () => {
 
   const $total = $("<div>", {
     class: "cart-dropdown__total",
+    role: "status",
   }).append($totalLabel, $totalPrice);
 
   const $checkoutButton = $("<button>", {
@@ -55,6 +60,8 @@ const createCartDropdown = () => {
   return $("<div>", {
     id: "cart-dropdown",
     class: "cart-dropdown",
+    role: "dialog",
+    "aria-labelledby": "cart-dropdown-title",
     hidden: true,
   }).append($header, $headerDivider, $body, $total, $footer);
 };
@@ -63,7 +70,7 @@ const createCartDropdownQuantity = (item) => {
   const $addButton = $("<button>", {
     class: "cart-dropdown__quantity-button cart-dropdown__quantity-add",
     type: "button",
-    "aria-label": "הוספת יחידה",
+    "aria-label": `הוספת יחידה: ${item.name}`,
     "aria-disabled": String(item.quantity >= item.maxQuantity),
   }).append(
     $("<img>", {
@@ -76,6 +83,9 @@ const createCartDropdownQuantity = (item) => {
   const $quantity = $("<span>", {
     class: "cart-dropdown__quantity-value",
     text: item.quantity,
+    "aria-live": "polite",
+    "aria-atomic": "true",
+    "aria-label": `כמות: ${item.quantity}`,
   });
 
   const isRemoveButton = item.quantity === 1;
@@ -84,7 +94,9 @@ const createCartDropdownQuantity = (item) => {
       ? "cart-dropdown__quantity-remove"
       : "cart-dropdown__quantity-decrease"}`,
     type: "button",
-    "aria-label": isRemoveButton ? "הסרת המוצר מהעגלה" : "הפחתת יחידה",
+    "aria-label": isRemoveButton
+      ? `הסרה מהעגלה: ${item.name}`
+      : `הפחתת יחידה: ${item.name}`,
   }).append(
     $("<img>", {
       src: isRemoveButton
@@ -97,6 +109,8 @@ const createCartDropdownQuantity = (item) => {
 
   return $("<div>", {
     class: "cart-dropdown__quantity-control",
+    role: "group",
+    "aria-label": `כמות עבור ${item.name}`,
   }).append($addButton, $quantity, $decreaseButton);
 };
 
@@ -108,6 +122,7 @@ const createCartDropdownItem = (item) => {
   });
 
   const $name = $("<h3>", {
+    id: `cart-item-title-${item.id}`,
     class: "cart-dropdown__item-name",
     text: item.name,
   });
@@ -128,9 +143,10 @@ const createCartDropdownItem = (item) => {
   });
   $content.append($name, $details);
 
-  return $("<div>", {
+  return $("<article>", {
     class: "cart-dropdown__item",
     "data-product-id": item.id,
+    "aria-labelledby": `cart-item-title-${item.id}`,
   }).append($image, $content);
 };
 
@@ -164,6 +180,16 @@ const initCartDropdown = ({
 
   const handleCloseClick = () => {
     setOpen(false);
+    $container.children(".cart-button").trigger("focus");
+  };
+
+  const handleDropdownKeydown = (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    event.preventDefault();
+    handleCloseClick();
   };
 
   const handleQuantityIncrease = (event) => {
@@ -196,6 +222,7 @@ const initCartDropdown = ({
   $container.append($dropdown);
 
   $dropdown.on("click", ".cart-dropdown__close", handleCloseClick);
+  $dropdown.on("keydown", handleDropdownKeydown);
   $dropdown.on("click", ".cart-dropdown__quantity-add", handleQuantityIncrease);
   $dropdown.on("click", ".cart-dropdown__quantity-remove", handleProductRemove);
   $dropdown.on(
@@ -224,9 +251,16 @@ const initCartDropdown = ({
     $totalPrice.text(`${totalPrice.toLocaleString("he-IL")} ₪`);
   };
 
+  const openDropdown = () => {
+    const openState = setOpen(true);
+
+    $dropdown.find(".cart-dropdown__close").trigger("focus");
+    return openState;
+  };
+
   return {
     toggle: () => setOpen(!isOpen),
-    open: () => setOpen(true),
+    open: openDropdown,
     close: () => setOpen(false),
     setItems,
   };
