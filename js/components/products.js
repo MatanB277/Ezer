@@ -198,26 +198,6 @@ const createProductsSort = () => {
   return [$label, $control];
 };
 
-const sortProducts = (productItems, sortValue) => {
-  const sortedProducts = [...productItems];
-
-  if (sortValue === "price-ascending") {
-    return sortedProducts.sort(
-      (firstProduct, secondProduct) => firstProduct.price - secondProduct.price,
-    );
-  }
-
-  if (sortValue === "price-descending") {
-    return sortedProducts.sort(
-      (firstProduct, secondProduct) => secondProduct.price - firstProduct.price,
-    );
-  }
-
-  return sortedProducts.sort((firstProduct, secondProduct) =>
-    firstProduct.name.localeCompare(secondProduct.name, "he"),
-  );
-};
-
 const initProducts = ({
   selector,
   initialProducts = [],
@@ -274,38 +254,12 @@ const initProducts = ({
   };
 
   const updateCart = () => {
-    let count = 0;
-    let price = 0;
-    const items = [];
+    const cartSummary = createCartSummary(cartQuantities, knownProducts);
 
-    cartQuantities.forEach((quantity, productId) => {
-      const product = knownProducts.get(productId);
-
-      if (!product) {
-        return;
-      }
-
-      count += quantity;
-      price += product.price * quantity;
-      items.push({
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        price: product.price,
-        quantity,
-        maxQuantity: product.maxQuantity,
-      });
-    });
-
-    onCartChange({ count, price, items });
+    onCartChange(cartSummary);
   };
 
-  $sort.on("change", ".products__sort-select", () => {
-    updateSelectWidth();
-    renderProducts();
-  });
-
-  const getSelectedProduct = (event) => {
+  const getProductFromCardEvent = (event) => {
     const productId = Number(
       $(event.currentTarget).closest(".product-card").attr("data-product-id"),
     );
@@ -313,53 +267,24 @@ const initProducts = ({
     return currentProducts.find((product) => product.id === productId);
   };
 
-  $list.on("click", ".product-card__add-to-cart-button", (event) => {
-    const product = getSelectedProduct(event);
+  const updateProductCartControl = (product, quantity) => {
+    const $productCard = $list.find(`[data-product-id="${product.id}"]`);
+    const $currentControl = $productCard.find(
+      ".product-card__quantity-control, .product-card__add-to-cart-button",
+    );
+    const $nextControl = quantity > 0
+      ? createQuantityControl(product, quantity)
+      : createAddToCartButton();
 
-    if (!product) {
-      return;
-    }
+    $currentControl.replaceWith($nextControl);
+  };
 
+  const addProductToCart = (product) => {
     cartQuantities.set(product.id, 1);
-    $(event.currentTarget).replaceWith(createQuantityControl(product, 1));
+    updateProductCartControl(product, 1);
     updateCart();
     onProductAdded(product);
-  });
-
-  $list.on("click", ".product-card__quantity-add", (event) => {
-    const product = getSelectedProduct(event);
-
-    if (!product) {
-      return;
-    }
-
-    const currentQuantity = cartQuantities.get(product.id) || 1;
-
-    if (currentQuantity >= product.maxQuantity) {
-      return;
-    }
-
-    const nextQuantity = currentQuantity + 1;
-    cartQuantities.set(product.id, nextQuantity);
-    $(event.currentTarget)
-      .closest(".product-card__quantity-control")
-      .replaceWith(createQuantityControl(product, nextQuantity));
-    updateCart();
-  });
-
-  $list.on("click", ".product-card__quantity-remove", (event) => {
-    const product = getSelectedProduct(event);
-
-    if (!product) {
-      return;
-    }
-
-    cartQuantities.delete(product.id);
-    $(event.currentTarget)
-      .closest(".product-card__quantity-control")
-      .replaceWith(createAddToCartButton());
-    updateCart();
-  });
+  };
 
   const increaseCartQuantity = (productId) => {
     const product = knownProducts.get(productId);
@@ -370,22 +295,21 @@ const initProducts = ({
     }
 
     const nextQuantity = currentQuantity + 1;
-    const $productCard = $list.find(`[data-product-id="${productId}"]`);
 
     cartQuantities.set(productId, nextQuantity);
-    $productCard
-      .find(".product-card__quantity-control")
-      .replaceWith(createQuantityControl(product, nextQuantity));
+    updateProductCartControl(product, nextQuantity);
     updateCart();
   };
 
   const removeFromCart = (productId) => {
-    const $productCard = $list.find(`[data-product-id="${productId}"]`);
+    const product = knownProducts.get(productId);
+
+    if (!product) {
+      return;
+    }
 
     cartQuantities.delete(productId);
-    $productCard
-      .find(".product-card__quantity-control")
-      .replaceWith(createAddToCartButton());
+    updateProductCartControl(product, 0);
     updateCart();
   };
 
@@ -398,14 +322,57 @@ const initProducts = ({
     }
 
     const nextQuantity = currentQuantity - 1;
-    const $productCard = $list.find(`[data-product-id="${productId}"]`);
 
     cartQuantities.set(productId, nextQuantity);
-    $productCard
-      .find(".product-card__quantity-control")
-      .replaceWith(createQuantityControl(product, nextQuantity));
+    updateProductCartControl(product, nextQuantity);
     updateCart();
   };
+
+  const handleSortChange = () => {
+    updateSelectWidth();
+    renderProducts();
+  };
+
+  const handleAddToCartClick = (event) => {
+    const product = getProductFromCardEvent(event);
+
+    if (product) {
+      addProductToCart(product);
+    }
+  };
+
+  const handleQuantityIncreaseClick = (event) => {
+    const product = getProductFromCardEvent(event);
+
+    if (product) {
+      increaseCartQuantity(product.id);
+    }
+  };
+
+  const handleProductRemoveClick = (event) => {
+    const product = getProductFromCardEvent(event);
+
+    if (product) {
+      removeFromCart(product.id);
+    }
+  };
+
+  $sort.on("change", ".products__sort-select", handleSortChange);
+  $list.on(
+    "click",
+    ".product-card__add-to-cart-button",
+    handleAddToCartClick,
+  );
+  $list.on(
+    "click",
+    ".product-card__quantity-add",
+    handleQuantityIncreaseClick,
+  );
+  $list.on(
+    "click",
+    ".product-card__quantity-remove",
+    handleProductRemoveClick,
+  );
 
   updateSelectWidth();
 

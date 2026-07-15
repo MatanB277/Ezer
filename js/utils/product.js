@@ -16,3 +16,23 @@ const filterProducts = (productItems, filters) =>
 
     return matchesCategory && matchesAvailability && matchesSearch;
   });
+
+const sortProducts = (productItems, sortValue) => {
+  const sortedProducts = [...productItems];
+
+  if (sortValue === "price-ascending") {
+    return sortedProducts.sort(
+      (firstProduct, secondProduct) => firstProduct.price - secondProduct.price,
+    );
+  }
+
+  if (sortValue === "price-descending") {
+    return sortedProducts.sort(
+      (firstProduct, secondProduct) => secondProduct.price - firstProduct.price,
+    );
+  }
+
+  return sortedProducts.sort((firstProduct, secondProduct) =>
+    firstProduct.name.localeCompare(secondProduct.name, "he"),
+  );
+};

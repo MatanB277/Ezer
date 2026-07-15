@@ -155,62 +155,49 @@ const initCartDropdown = ({
     return isOpen;
   };
 
+  const getProductIdFromEvent = (event) =>
+    Number(
+      $(event.currentTarget)
+        .closest(".cart-dropdown__item")
+        .attr("data-product-id"),
+    );
+
+  const handleCloseClick = () => {
+    setOpen(false);
+  };
+
+  const handleQuantityIncrease = (event) => {
+    onQuantityIncrease(getProductIdFromEvent(event));
+  };
+
+  const handleQuantityDecrease = (event) => {
+    onQuantityDecrease(getProductIdFromEvent(event));
+  };
+
+  const handleProductRemove = (event) => {
+    onProductRemove(getProductIdFromEvent(event));
+  };
+
   $container.append($dropdown);
 
-  $dropdown.on("click", ".cart-dropdown__close", () => {
-    setOpen(false);
+  onClickOutsideCartDropdown({
+    $cartContainer: $container,
+    isDropdownOpen: () => isOpen,
+    onOutsideClick: handleCloseClick,
   });
 
-  $(document).on("pointerdown.cartDropdown", (event) => {
-    const $target = $(event.target);
-
-    if (
-      !isOpen ||
-      $target.closest($container).length ||
-      $target.closest("[data-cart-opener]").length
-    ) {
-      return;
-    }
-
-    setOpen(false);
-  });
-
-  $dropdown.on("click", ".cart-dropdown__quantity-add", (event) => {
-    const productId = Number(
-      $(event.currentTarget)
-        .closest(".cart-dropdown__item")
-        .attr("data-product-id"),
-    );
-
-    onQuantityIncrease(productId);
-  });
-
-  $dropdown.on("click", ".cart-dropdown__quantity-remove", (event) => {
-    const productId = Number(
-      $(event.currentTarget)
-        .closest(".cart-dropdown__item")
-        .attr("data-product-id"),
-    );
-
-    onProductRemove(productId);
-  });
-
-  $dropdown.on("click", ".cart-dropdown__quantity-decrease", (event) => {
-    const productId = Number(
-      $(event.currentTarget)
-        .closest(".cart-dropdown__item")
-        .attr("data-product-id"),
-    );
-
-    onQuantityDecrease(productId);
-  });
+  $dropdown.on("click", ".cart-dropdown__close", handleCloseClick);
+  $dropdown.on("click", ".cart-dropdown__quantity-add", handleQuantityIncrease);
+  $dropdown.on("click", ".cart-dropdown__quantity-remove", handleProductRemove);
+  $dropdown.on(
+    "click",
+    ".cart-dropdown__quantity-decrease",
+    handleQuantityDecrease,
+  );
 
   const setItems = (items) => {
     const content = [];
-    const totalPrice = items.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0,
-    );
+    const totalPrice = calculateCartItemsTotal(items);
 
     items.forEach((item, index) => {
       content.push(createCartDropdownItem(item));
