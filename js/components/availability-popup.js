@@ -54,12 +54,17 @@ const createAvailabilityPopup = () => {
     ),
   );
 
+  const $branchSearch = createSearchInput({
+    placeholder: "חיפוש סניף",
+    controls: null,
+  }).addClass("availability-popup__search");
+
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "availability-popup-title availability-popup-product-name",
-  }).append($header, $availabilityNotice);
+  }).append($header, $availabilityNotice, $branchSearch);
 
   return $("<div>", {
     class: "availability-popup__backdrop",

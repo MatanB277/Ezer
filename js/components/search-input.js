@@ -1,6 +1,7 @@
 const createSearchInput = ({
   placeholder = "חיפוש מוצר",
   icon = "assets/icons/search.svg",
+  controls = "products-list",
 }) => {
   const $icon = $("<img>", {
     class: "search-input__icon",
@@ -14,7 +15,7 @@ const createSearchInput = ({
     type: "search",
     placeholder,
     "aria-label": placeholder,
-    "aria-controls": "products-list",
+    ...(controls ? { "aria-controls": controls } : {}),
     autocomplete: "off",
   });
 
