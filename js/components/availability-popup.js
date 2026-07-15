@@ -48,6 +48,7 @@ const createAvailabilityPopup = () => {
         text: "לפי ההגעה לסניף -",
       }),
       $("<span>", {
+        class: "availability-popup__notice-message",
         text: "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
       }),
     ),

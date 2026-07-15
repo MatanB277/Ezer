@@ -63,10 +63,6 @@
   padding: 14px 22px;
   margin-top: 8px;
   margin-bottom: 16px;
-  color: var(--Dark-Brown, #36080A);
-  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
-  font-size: 18px;
-  line-height: 24px;
 }
 
 .availability-popup__notice-text {
@@ -75,8 +71,20 @@
   gap: 4px;
 }
 
+.availability-popup__notice-label,
+.availability-popup__notice-message {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+}
+
 .availability-popup__notice-label {
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.availability-popup__notice-message {
+  font-weight: 400;
 }
 
 .availability-popup__notice-icon {
