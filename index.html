@@ -15,28 +15,31 @@
   <link rel="stylesheet" href="./css/products.css">
 </head>
 <body>
-  <main class="page-container">
+  <main>
     <section class="product-header">
-      <div class="product-header__heading">
-        <h1
-          class="product-header__title"
-          aria-live="polite"
-          aria-atomic="true"
-        ></h1>
-        <img
-          class="product-header__line"
-          src="./assets/icons/horizontal-line.svg"
-          alt=""
-          aria-hidden="true"
-        >
-      </div>
+      <div class="product-header__inner">
+        <div class="product-header__heading">
+          <h1
+            class="product-header__title"
+            aria-live="polite"
+            aria-atomic="true"
+          ></h1>
+          <img
+            class="product-header__line"
+            src="./assets/icons/horizontal-line.svg"
+            alt=""
+            aria-hidden="true"
+          >
+        </div>
 
-      <div class="product-header__actions">
-        <div class="product-header__search"></div>
-        <div class="product-header__cart"></div>
+        <div class="product-header__actions">
+          <div class="product-header__search"></div>
+          <div class="product-header__cart"></div>
+        </div>
       </div>
     </section>
 
+    <div class="page-container">
     <section class="categories" aria-label="קטגוריות מוצרים">
       <button
         class="categories__arrow categories__arrow--right"
@@ -79,6 +82,7 @@
       </div>
       <div id="products-list" class="products__list"></div>
     </section>
+    </div>
   </main>
 
   <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>

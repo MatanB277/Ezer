@@ -1,10 +1,19 @@
 .product-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--White, #FFF);
+  z-index: 10;
+}
+
+.product-header__inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   gap: 16px;
-  margin-bottom: 32px;
+  padding: 16px 20px;
 }
 
 .product-header__heading {
@@ -27,4 +36,16 @@
   font-size: 40px;
   font-weight: 400;
   line-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .product-header__inner {
+    padding-inline: 48px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .product-header__inner {
+    padding-inline: 240px;
+  }
 }
