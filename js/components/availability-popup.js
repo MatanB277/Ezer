@@ -31,12 +31,34 @@ const createAvailabilityPopup = () => {
     class: "availability-popup__header",
   }).append($title, $titleDivider, $productName, $closeButton);
 
+  const $availabilityNotice = $("<div>", {
+    class: "availability-popup__notice",
+  }).append(
+    $("<img>", {
+      class: "availability-popup__notice-icon",
+      src: "assets/icons/phone-brown.svg",
+      alt: "",
+      "aria-hidden": "true",
+    }),
+    $("<div>", {
+      class: "availability-popup__notice-text",
+    }).append(
+      $("<strong>", {
+        class: "availability-popup__notice-label",
+        text: "לפי ההגעה לסניף -",
+      }),
+      $("<span>", {
+        text: "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
+      }),
+    ),
+  );
+
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "availability-popup-title availability-popup-product-name",
-  }).append($header);
+  }).append($header, $availabilityNotice);
 
   return $("<div>", {
     class: "availability-popup__backdrop",
