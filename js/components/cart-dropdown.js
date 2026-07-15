@@ -253,8 +253,9 @@ const initCartDropdown = ({
 
   const openDropdown = () => {
     const openState = setOpen(true);
+    const closeButton = $dropdown.find(".cart-dropdown__close")[0];
 
-    $dropdown.find(".cart-dropdown__close").trigger("focus");
+    closeButton?.focus({ preventScroll: true });
     return openState;
   };
 
