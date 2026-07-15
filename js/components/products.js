@@ -106,7 +106,6 @@ const createProductActions = (product, quantity) => {
       class: "product-card__location-button",
       type: "button",
       "aria-label": `סניפים וזמינות: ${product.name}`,
-      "aria-disabled": "true",
     }).append($locationIcon, $locationText);
 
     $actions.append($locationButton);
@@ -218,6 +217,7 @@ const initProducts = ({
   initialProducts = [],
   onCartChange = () => {},
   onProductAdded = () => {},
+  onAvailabilityClick = () => {},
 }) => {
   const $products = $(selector);
   const $count = $products.find(".products__count");
@@ -371,6 +371,14 @@ const initProducts = ({
     }
   };
 
+  const handleAvailabilityClick = (event) => {
+    const product = getProductFromCardEvent(event);
+
+    if (product) {
+      onAvailabilityClick(product);
+    }
+  };
+
   const handleQuantityDecreaseClick = (event) => {
     const product = getProductFromCardEvent(event);
 
@@ -403,6 +411,11 @@ const initProducts = ({
     "click",
     ".product-card__quantity-decrease",
     handleQuantityDecreaseClick,
+  );
+  $list.on(
+    "click",
+    ".product-card__location-button",
+    handleAvailabilityClick,
   );
 
   updateSelectWidth();

@@ -12,6 +12,7 @@ $(() => {
 
   let cartComponent;
   let productsComponent;
+  const availabilityPopup = initAvailabilityPopup();
 
   const cartDropdown = initCartDropdown({
     selector: ".product-header__cart",
@@ -38,6 +39,9 @@ $(() => {
 
   productsComponent = initProducts({
     selector: ".products",
+    onAvailabilityClick: () => {
+      availabilityPopup.open();
+    },
     onProductAdded: () => {
       cartDropdown.open();
     },

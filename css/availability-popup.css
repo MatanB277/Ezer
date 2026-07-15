@@ -1,0 +1,60 @@
+.availability-popup__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 160px 20px 20px;
+  background: rgba(0, 0, 0, 0.30);
+}
+
+.availability-popup__backdrop[hidden] {
+  display: none;
+}
+
+.availability-popup {
+  position: relative;
+  width: 970px;
+  max-width: 100%;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding: 32px 40px;
+  border-radius: 32px;
+  background: var(--White, #FFF);
+}
+
+.availability-popup__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.availability-popup__title {
+  margin: 0;
+}
+
+.availability-popup__close {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .availability-popup__backdrop {
+    padding: 16px;
+  }
+
+  .availability-popup {
+    max-height: calc(100vh - 32px);
+    padding: 24px 20px;
+    border-radius: 24px;
+  }
+}
