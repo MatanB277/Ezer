@@ -119,7 +119,7 @@
   padding: 5px;
 }
 
-.cart-dropdown__quantity-button:disabled {
+.cart-dropdown__quantity-button[aria-disabled="true"] {
   opacity: 0.5;
   cursor: default;
 }

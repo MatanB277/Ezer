@@ -282,6 +282,10 @@
   padding: 4px;
 }
 
+.product-card__quantity-decrease {
+  padding: 4px;
+}
+
 .product-card__quantity-remove {
   padding: 6px;
 }
@@ -294,7 +298,7 @@
   transform: scale(0.94);
 }
 
-.product-card__quantity-button:disabled {
+.product-card__quantity-button[aria-disabled="true"] {
   opacity: 0.5;
   cursor: default;
 }

@@ -64,7 +64,7 @@ const createCartDropdownQuantity = (item) => {
     class: "cart-dropdown__quantity-button cart-dropdown__quantity-add",
     type: "button",
     "aria-label": "הוספת יחידה",
-    disabled: item.quantity >= item.maxQuantity,
+    "aria-disabled": String(item.quantity >= item.maxQuantity),
   }).append(
     $("<img>", {
       src: "assets/icons/add.svg",
@@ -167,11 +167,26 @@ const initCartDropdown = ({
   };
 
   const handleQuantityIncrease = (event) => {
-    onQuantityIncrease(getProductIdFromEvent(event));
+    const productId = getProductIdFromEvent(event);
+
+    onQuantityIncrease(productId);
+    $dropdown
+      .find(
+        `[data-product-id="${productId}"] .cart-dropdown__quantity-add`,
+      )
+      .trigger("focus");
   };
 
   const handleQuantityDecrease = (event) => {
-    onQuantityDecrease(getProductIdFromEvent(event));
+    const productId = getProductIdFromEvent(event);
+
+    onQuantityDecrease(productId);
+    $dropdown
+      .find(
+        `[data-product-id="${productId}"] .cart-dropdown__quantity-decrease, ` +
+        `[data-product-id="${productId}"] .cart-dropdown__quantity-remove`,
+      )
+      .trigger("focus");
   };
 
   const handleProductRemove = (event) => {

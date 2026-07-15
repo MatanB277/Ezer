@@ -40,7 +40,7 @@ const createQuantityControl = (product, quantity) => {
     class: "product-card__quantity-button product-card__quantity-add",
     type: "button",
     "aria-label": "הוספת יחידה",
-    disabled: quantity >= product.maxQuantity,
+    "aria-disabled": String(quantity >= product.maxQuantity),
   }).append(
     $("<img>", {
       src: "assets/icons/add.svg",
@@ -55,13 +55,18 @@ const createQuantityControl = (product, quantity) => {
     "aria-live": "polite",
   });
 
-  const $trashButton = $("<button>", {
-    class: "product-card__quantity-button product-card__quantity-remove",
+  const isRemoveButton = quantity === 1;
+  const $decreaseButton = $("<button>", {
+    class: `product-card__quantity-button ${isRemoveButton
+      ? "product-card__quantity-remove"
+      : "product-card__quantity-decrease"}`,
     type: "button",
-    "aria-label": "הסרת המוצר מהעגלה",
+    "aria-label": isRemoveButton ? "הסרת המוצר מהעגלה" : "הפחתת יחידה",
   }).append(
     $("<img>", {
-      src: "assets/icons/trash.svg",
+      src: isRemoveButton
+        ? "assets/icons/trash.svg"
+        : "assets/icons/minus.svg",
       alt: "",
       "aria-hidden": "true",
     }),
@@ -69,7 +74,7 @@ const createQuantityControl = (product, quantity) => {
 
   return $("<div>", {
     class: "product-card__quantity-control",
-  }).append($addButton, $quantity, $trashButton);
+  }).append($addButton, $quantity, $decreaseButton);
 };
 
 const createProductActions = (product, quantity) => {
@@ -263,6 +268,14 @@ const initProducts = ({
     return currentProducts.find((product) => product.id === productId);
   };
 
+  const focusProductCardControl = (productId, controlSelector) => {
+    $list
+      .find(`[data-product-id="${productId}"]`)
+      .find(controlSelector)
+      .first()
+      .trigger("focus");
+  };
+
   const updateProductCartControl = (product, quantity) => {
     const $productCard = $list.find(`[data-product-id="${product.id}"]`);
     const $currentControl = $productCard.find(
@@ -334,6 +347,7 @@ const initProducts = ({
 
     if (product) {
       increaseCartQuantity(product.id);
+      focusProductCardControl(product.id, ".product-card__quantity-add");
     }
   };
 
@@ -342,6 +356,18 @@ const initProducts = ({
 
     if (product) {
       removeFromCart(product.id);
+    }
+  };
+
+  const handleQuantityDecreaseClick = (event) => {
+    const product = getProductFromCardEvent(event);
+
+    if (product) {
+      decreaseCartQuantity(product.id);
+      focusProductCardControl(
+        product.id,
+        ".product-card__quantity-decrease, .product-card__quantity-remove",
+      );
     }
   };
 
@@ -360,6 +386,11 @@ const initProducts = ({
     "click",
     ".product-card__quantity-remove",
     handleProductRemoveClick,
+  );
+  $list.on(
+    "click",
+    ".product-card__quantity-decrease",
+    handleQuantityDecreaseClick,
   );
 
   updateSelectWidth();
