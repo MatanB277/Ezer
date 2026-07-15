@@ -7,6 +7,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Almoni Neue DL 4.0 AAA";
+  src: url("../assets/fonts/almoni-neue-regular-aaa.woff2") format("woff2"),
+       url("../assets/fonts/almoni-neue-regular-aaa.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -74,7 +83,8 @@ p {
 
 @font-face {
   font-family: "Rutz_OE";
-  src: url("../assets/fonts/Rutz_OE_regular_pro.ttf") format("woff2");
+  src: url("../assets/fonts/Rutz_OE_regular_pro.woff") format("woff"),
+       url("../assets/fonts/Rutz_OE_regular_pro.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

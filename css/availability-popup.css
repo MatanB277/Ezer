@@ -26,12 +26,30 @@
 
 .availability-popup__header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+  gap: 16px;
 }
 
 .availability-popup__title {
   margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 38px;
+}
+
+.availability-popup__title-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--Dark-Brown, #36080A);
+}
+
+.availability-popup__product-name {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .availability-popup__close {

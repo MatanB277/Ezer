@@ -1,19 +1,17 @@
 .product-header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: var(--White, #FFF);
-  z-index: 10;
-}
-
-.product-header__inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  position: sticky;
+  top: 0;
   gap: 16px;
   padding: 16px 20px;
+  margin-inline: -20px;
+  margin-top: -16px;
+  margin-bottom: 16px;
+  background-color: var(--White, #FFF);
+  z-index: 10;
 }
 
 .product-header__heading {
@@ -31,6 +29,7 @@
 }
 
 .product-header__title {
+  font-family: "Almoni Neue DL 4.0 AAA";
   margin: 0;
   color: var(--Dark-Brown, #36080A);
   font-size: 40px;
@@ -39,13 +38,15 @@
 }
 
 @media (min-width: 768px) {
-  .product-header__inner {
+  .product-header {
     padding-inline: 48px;
+    margin-inline: -48px;
   }
 }
 
 @media (min-width: 1440px) {
-  .product-header__inner {
+  .product-header {
     padding-inline: 240px;
+    margin-inline: -240px;
   }
 }

@@ -39,8 +39,8 @@ $(() => {
 
   productsComponent = initProducts({
     selector: ".products",
-    onAvailabilityClick: () => {
-      availabilityPopup.open();
+    onAvailabilityClick: (product) => {
+      availabilityPopup.open(product);
     },
     onProductAdded: () => {
       cartDropdown.open();

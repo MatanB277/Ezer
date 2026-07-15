@@ -5,6 +5,16 @@ const createAvailabilityPopup = () => {
     text: "סניפים וזמינות",
   });
 
+  const $titleDivider = $("<span>", {
+    class: "availability-popup__title-divider",
+    "aria-hidden": "true",
+  });
+
+  const $productName = $("<span>", {
+    id: "availability-popup-product-name",
+    class: "availability-popup__product-name",
+  });
+
   const $closeButton = $("<button>", {
     class: "availability-popup__close",
     type: "button",
@@ -19,13 +29,13 @@ const createAvailabilityPopup = () => {
 
   const $header = $("<div>", {
     class: "availability-popup__header",
-  }).append($title, $closeButton);
+  }).append($title, $titleDivider, $productName, $closeButton);
 
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
-    "aria-labelledby": "availability-popup-title",
+    "aria-labelledby": "availability-popup-title availability-popup-product-name",
   }).append($header);
 
   return $("<div>", {
@@ -38,6 +48,7 @@ const initAvailabilityPopup = () => {
   const $backdrop = createAvailabilityPopup();
   const $popup = $backdrop.find(".availability-popup");
   const $closeButton = $backdrop.find(".availability-popup__close");
+  const $productName = $backdrop.find(".availability-popup__product-name");
   let previouslyFocusedElement = null;
 
   const closePopup = () => {
@@ -46,8 +57,9 @@ const initAvailabilityPopup = () => {
     previouslyFocusedElement?.focus({ preventScroll: true });
   };
 
-  const openPopup = () => {
+  const openPopup = (product) => {
     previouslyFocusedElement = document.activeElement;
+    $productName.text(product?.name ?? "");
     $backdrop.prop("hidden", false);
     $(document.body).css("overflow", "hidden");
     $closeButton[0]?.focus({ preventScroll: true });
