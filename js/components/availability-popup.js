@@ -43,7 +43,7 @@ const createAvailabilityPopup = () => {
     $("<div>", {
       class: "availability-popup__notice-text",
     }).append(
-      $("<strong>", {
+      $("<span>", {
         class: "availability-popup__notice-label",
         text: "לפי ההגעה לסניף -",
       }),
