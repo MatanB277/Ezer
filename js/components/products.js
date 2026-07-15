@@ -32,6 +32,7 @@ const createAddToCartButton = () => {
   return $("<button>", {
     class: "product-card__add-to-cart-button",
     type: "button",
+    "data-cart-opener": "true",
   }).append($cartText);
 };
 
@@ -221,6 +222,7 @@ const initProducts = ({
   selector,
   initialProducts = [],
   onCartChange = () => {},
+  onProductAdded = () => {},
 }) => {
   const $products = $(selector);
   const $count = $products.find(".products__count");
@@ -321,6 +323,7 @@ const initProducts = ({
     cartQuantities.set(product.id, 1);
     $(event.currentTarget).replaceWith(createQuantityControl(product, 1));
     updateCart();
+    onProductAdded(product);
   });
 
   $list.on("click", ".product-card__quantity-add", (event) => {

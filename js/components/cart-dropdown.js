@@ -161,6 +161,20 @@ const initCartDropdown = ({
     setOpen(false);
   });
 
+  $(document).on("pointerdown.cartDropdown", (event) => {
+    const $target = $(event.target);
+
+    if (
+      !isOpen ||
+      $target.closest($container).length ||
+      $target.closest("[data-cart-opener]").length
+    ) {
+      return;
+    }
+
+    setOpen(false);
+  });
+
   $dropdown.on("click", ".cart-dropdown__quantity-add", (event) => {
     const productId = Number(
       $(event.currentTarget)
@@ -216,6 +230,7 @@ const initCartDropdown = ({
 
   return {
     toggle: () => setOpen(!isOpen),
+    open: () => setOpen(true),
     close: () => setOpen(false),
     setItems,
   };

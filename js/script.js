@@ -38,6 +38,9 @@ $(() => {
 
   productsComponent = initProducts({
     selector: ".products",
+    onProductAdded: () => {
+      cartDropdown.open();
+    },
     onCartChange: ({ price, count, items }) => {
       if (count === 0) {
         cartDropdown.close();

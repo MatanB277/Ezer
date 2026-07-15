@@ -158,6 +158,46 @@
   background: var(--Light-Beige, #F7F1ED);
 }
 
+.cart-dropdown__body {
+  height: 288px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--Dark-Brown, #36080A) transparent;
+}
+
+.cart-dropdown__body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.cart-dropdown__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cart-dropdown__body::-webkit-scrollbar-button {
+  -webkit-appearance: none;
+  display: none;
+  width: 0;
+  height: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cart-dropdown__body::-webkit-scrollbar-button:vertical:start:decrement,
+.cart-dropdown__body::-webkit-scrollbar-button:vertical:end:increment {
+  -webkit-appearance: none;
+  display: none;
+  width: 0;
+  height: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cart-dropdown__body::-webkit-scrollbar-thumb {
+  min-height: 74px;
+  border-radius: 4px;
+  background: var(--Dark-Brown, #36080A);
+}
+
 .cart-dropdown__total-label,
 .cart-dropdown__total-price {
   color: var(--Dark-Brown, #36080A);
