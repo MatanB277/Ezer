@@ -180,12 +180,6 @@ const initCartDropdown = ({
 
   $container.append($dropdown);
 
-  onClickOutsideCartDropdown({
-    $cartContainer: $container,
-    isDropdownOpen: () => isOpen,
-    onOutsideClick: handleCloseClick,
-  });
-
   $dropdown.on("click", ".cart-dropdown__close", handleCloseClick);
   $dropdown.on("click", ".cart-dropdown__quantity-add", handleQuantityIncrease);
   $dropdown.on("click", ".cart-dropdown__quantity-remove", handleProductRemove);

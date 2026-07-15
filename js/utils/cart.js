@@ -16,7 +16,7 @@ const createCartSummary = (cartQuantities, productsById) => {
     }
 
     count += quantity;
-    
+
     items.push({
       id: product.id,
       name: product.name,
@@ -34,23 +34,80 @@ const createCartSummary = (cartQuantities, productsById) => {
   };
 };
 
-const onClickOutsideCartDropdown = ({
-  $cartContainer,
-  isDropdownOpen,
-  onOutsideClick,
-}) => {
-  const handlePointerDown = (event) => {
-    const $clickedElement = $(event.target);
-    const clickedInsideCart = $clickedElement.closest($cartContainer).length > 0;
-    const clickedAddToCartButton =
-      $clickedElement.closest("[data-cart-opener]").length > 0;
+const createCartState = () => {
+  const quantities = new Map();
+  const productsById = new Map();
 
-    if (!isDropdownOpen() || clickedInsideCart || clickedAddToCartButton) {
-      return;
-    }
-
-    onOutsideClick();
+  const registerProducts = (productItems) => {
+    productItems.forEach((product) => productsById.set(product.id, product));
   };
 
-  $(document).on("pointerdown.cartDropdown", handlePointerDown);
+  const add = (product) => {
+    productsById.set(product.id, product);
+    quantities.set(product.id, 1);
+
+    return {
+      product,
+      quantity: 1,
+    };
+  };
+
+  const increase = (productId) => {
+    const product = productsById.get(productId);
+    const currentQuantity = quantities.get(productId) || 0;
+
+    if (!product || currentQuantity >= product.maxQuantity) {
+      return null;
+    }
+
+    const quantity = currentQuantity + 1;
+    quantities.set(productId, quantity);
+
+    return {
+      product,
+      quantity,
+    };
+  };
+
+  const decrease = (productId) => {
+    const product = productsById.get(productId);
+    const currentQuantity = quantities.get(productId) || 0;
+
+    if (!product || currentQuantity <= 1) {
+      return null;
+    }
+
+    const quantity = currentQuantity - 1;
+    quantities.set(productId, quantity);
+
+    return {
+      product,
+      quantity,
+    };
+  };
+
+  const remove = (productId) => {
+    const product = productsById.get(productId);
+
+    if (!product) {
+      return null;
+    }
+
+    quantities.delete(productId);
+
+    return {
+      product,
+      quantity: 0,
+    };
+  };
+
+  return {
+    add,
+    increase,
+    decrease,
+    remove,
+    registerProducts,
+    getQuantity: (productId) => quantities.get(productId) || 0,
+    getSummary: () => createCartSummary(quantities, productsById),
+  };
 };

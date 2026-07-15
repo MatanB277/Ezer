@@ -32,7 +32,6 @@ const createAddToCartButton = () => {
   return $("<button>", {
     class: "product-card__add-to-cart-button",
     type: "button",
-    "data-cart-opener": "true",
   }).append($cartText);
 };
 
@@ -208,8 +207,7 @@ const initProducts = ({
   const $count = $products.find(".products__count");
   const $list = $products.find(".products__list");
   const $sort = $products.find(".products__sort");
-  const cartQuantities = new Map();
-  const knownProducts = new Map();
+  const cart = createCartState();
   let currentProducts = [];
 
   $sort.append(createProductsSort());
@@ -240,7 +238,7 @@ const initProducts = ({
     }
 
     const productCards = sortedProducts.map((product) =>
-      createProductCard(product, cartQuantities.get(product.id) || 0),
+      createProductCard(product, cart.getQuantity(product.id)),
     );
 
     $list.empty().append(productCards);
@@ -248,15 +246,13 @@ const initProducts = ({
 
   const setProducts = (productItems) => {
     currentProducts = productItems;
-    productItems.forEach((product) => knownProducts.set(product.id, product));
+    cart.registerProducts(productItems);
     $count.text(`מציג ${productItems.length} מוצרים`);
     renderProducts();
   };
 
   const updateCart = () => {
-    const cartSummary = createCartSummary(cartQuantities, knownProducts);
-
-    onCartChange(cartSummary);
+    onCartChange(cart.getSummary());
   };
 
   const getProductFromCardEvent = (event) => {
@@ -280,51 +276,43 @@ const initProducts = ({
   };
 
   const addProductToCart = (product) => {
-    cartQuantities.set(product.id, 1);
-    updateProductCartControl(product, 1);
+    const cartItem = cart.add(product);
+
+    updateProductCartControl(cartItem.product, cartItem.quantity);
     updateCart();
     onProductAdded(product);
   };
 
   const increaseCartQuantity = (productId) => {
-    const product = knownProducts.get(productId);
-    const currentQuantity = cartQuantities.get(productId) || 0;
+    const cartItem = cart.increase(productId);
 
-    if (!product || currentQuantity >= product.maxQuantity) {
+    if (!cartItem) {
       return;
     }
 
-    const nextQuantity = currentQuantity + 1;
-
-    cartQuantities.set(productId, nextQuantity);
-    updateProductCartControl(product, nextQuantity);
+    updateProductCartControl(cartItem.product, cartItem.quantity);
     updateCart();
   };
 
   const removeFromCart = (productId) => {
-    const product = knownProducts.get(productId);
+    const cartItem = cart.remove(productId);
 
-    if (!product) {
+    if (!cartItem) {
       return;
     }
 
-    cartQuantities.delete(productId);
-    updateProductCartControl(product, 0);
+    updateProductCartControl(cartItem.product, cartItem.quantity);
     updateCart();
   };
 
   const decreaseCartQuantity = (productId) => {
-    const product = knownProducts.get(productId);
-    const currentQuantity = cartQuantities.get(productId) || 0;
+    const cartItem = cart.decrease(productId);
 
-    if (!product || currentQuantity <= 1) {
+    if (!cartItem) {
       return;
     }
 
-    const nextQuantity = currentQuantity - 1;
-
-    cartQuantities.set(productId, nextQuantity);
-    updateProductCartControl(product, nextQuantity);
+    updateProductCartControl(cartItem.product, cartItem.quantity);
     updateCart();
   };
 
