@@ -59,12 +59,40 @@ const createAvailabilityPopup = () => {
     controls: null,
   }).addClass("availability-popup__search");
 
+  const $locationSelect = $("<select>", {
+    class: "availability-popup__location-field",
+    "aria-label": "סינון סניפים לפי אזור",
+  }).append(
+    locations.map((location) => $("<option>", {
+      value: location.value,
+      text: location.name,
+    })),
+  );
+
+  const $locationArrow = $("<span>", {
+    class: "availability-popup__location-arrow",
+    "aria-hidden": "true",
+  }).append(
+    $("<img>", {
+      src: "assets/icons/chevron-arrow-down.svg",
+      alt: "",
+    }),
+  );
+
+  const $locationSelectContainer = $("<div>", {
+    class: "availability-popup__location-select",
+  }).append($locationSelect, $locationArrow);
+
+  const $filters = $("<div>", {
+    class: "availability-popup__filters",
+  }).append($branchSearch, $locationSelectContainer);
+
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "availability-popup-title availability-popup-product-name",
-  }).append($header, $availabilityNotice, $branchSearch);
+  }).append($header, $availabilityNotice, $filters);
 
   return $("<div>", {
     class: "availability-popup__backdrop",
