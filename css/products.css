@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
 }
 
 .products__sort {
@@ -136,8 +137,7 @@
 
 .product-card__availability {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 
 .product-card__availability-tag {

@@ -1,3 +1,67 @@
+const createBranchCard = (branch) => {
+  const branchAddress = `${branch.street}, ${branch.city}`;
+  const phoneLink = branch.phone.replaceAll("-", "");
+
+  const $details = $("<div>", {
+    class: "branch-card__details",
+  }).append(
+    $("<span>", {
+      class: "branch-card__city",
+      text: branch.city,
+    }),
+    $("<span>", {
+      class: "branch-card__street",
+      text: branch.street,
+    }),
+  );
+
+  const $availability = createProductAvailability(branch.availability);
+  $availability?.addClass("branch-card__availability");
+
+  const $wazeLink = $("<a>", {
+    class: "branch-card__waze",
+    href: `https://www.waze.com/ul?q=${encodeURIComponent(branchAddress)}`,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    "aria-label": `ניווט ב-Waze אל ${branch.name}`,
+  }).append(
+    $("<img>", {
+      src: "assets/icons/waze.svg",
+      alt: "",
+      "aria-hidden": "true",
+    }),
+  );
+
+  const $contactDivider = $("<span>", {
+    class: "branch-card__contact-divider",
+    "aria-hidden": "true",
+  });
+
+  const $phoneLink = $("<a>", {
+    class: "branch-card__phone",
+    href: `tel:${phoneLink}`,
+    "aria-label": `התקשרות אל ${branch.name}, ${branch.phone}`,
+  }).append(
+    $("<img>", {
+      src: "assets/icons/phone.svg",
+      alt: "",
+      "aria-hidden": "true",
+    }),
+    $("<span>", {
+      class: "branch-card__phone-number",
+      text: branch.phone,
+    }),
+  );
+
+  const $contact = $("<div>", {
+    class: "branch-card__contact",
+  }).append($wazeLink, $contactDivider, $phoneLink);
+
+  return $("<article>", {
+    class: "branch-card",
+  }).append($details, $availability, $contact);
+};
+
 const createAvailabilityPopup = () => {
   const $title = $("<h2>", {
     id: "availability-popup-title",
@@ -101,12 +165,34 @@ const createAvailabilityPopup = () => {
     }),
   );
 
+  const $branchesContainer = $("<section>", {
+    class: "availability-popup__branches",
+    "aria-label": "סניפים",
+  }).append(
+    $("<p>", {
+      class: "availability-popup__branches-count",
+      text: `נמצאו ${branches.length} סניפים`,
+    }),
+    $("<div>", {
+      class: "availability-popup__branches-list",
+    }).append(branches.map(createBranchCard)),
+  );
+
+  const $popupContent = $("<div>", {
+    class: "availability-popup__content",
+  }).append(
+    $header,
+    $availabilityNotice,
+    $filters,
+    $availabilityFilters,
+  );
+
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "availability-popup-title availability-popup-product-name",
-  }).append($header, $availabilityNotice, $filters, $availabilityFilters);
+  }).append($popupContent, $branchesContainer);
 
   return $("<div>", {
     class: "availability-popup__backdrop",

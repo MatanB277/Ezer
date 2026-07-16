@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 160px 20px 20px;
+  padding: 100px 20px 20px;
   background: rgba(0, 0, 0, 0.30);
   animation: availability-backdrop-open 180ms ease-out;
 }
@@ -20,10 +20,14 @@
   max-width: 100%;
   max-height: calc(100vh - 180px);
   overflow-y: auto;
-  padding: 32px 40px 8px 40px;
   border-radius: 32px;
   background: var(--White, #FFF);
+  transform-origin: top center;
   animation: availability-popup-open 240ms ease-out;
+}
+
+.availability-popup__content {
+  padding: 32px 40px 0;
 }
 
 .availability-popup__header {
@@ -105,6 +109,101 @@
   padding-bottom: 16px;
 }
 
+.availability-popup__branches {
+  padding: 12px 40px;
+  background: #F7F4F2;
+}
+
+.availability-popup__branches-count {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  line-height: 22px;
+  font-size: 16px;
+}
+
+.availability-popup__branches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.branch-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: var(--White, #FFF);
+}
+
+.branch-card__details {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+}
+
+.branch-card__city {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 21.6px;
+}
+
+.branch-card__street {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 14px;
+  line-height: 16.8px;
+}
+
+.branch-card__availability .product-card__availability-tag {
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 14px;
+  line-height: 18.2px;
+  padding: 2px 6px;
+}
+
+.branch-card__availability {
+  width: 33.33%;
+  justify-content: flex-start;
+}
+
+.branch-card__contact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 33.33%;
+  gap: 12px;
+}
+
+.branch-card__waze,
+.branch-card__phone {
+  display: flex;
+  align-items: center;
+  color: var(--Dark-Brown, #36080A);
+  text-decoration: none;
+}
+
+.branch-card__phone {
+  gap: 6px;
+}
+
+.branch-card__phone-number {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  direction: ltr;
+}
+
+.branch-card__contact-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--Beige, #EADED2);
+}
+
 .availability-popup__search {
   flex: 0 1 300px;
   width: 300px;
@@ -178,12 +277,12 @@
 @keyframes availability-popup-open {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: scale(0.98);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1);
   }
 }
 
@@ -194,7 +293,26 @@
 
   .availability-popup {
     max-height: calc(100vh - 32px);
-    padding: 24px 20px;
     border-radius: 24px;
+  }
+
+  .availability-popup__content {
+    padding: 24px 20px 0;
+  }
+
+  .availability-popup__branches {
+    padding-inline: 20px;
+  }
+
+  .branch-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .branch-card__details,
+  .branch-card__availability,
+  .branch-card__contact {
+    width: 100%;
   }
 }
