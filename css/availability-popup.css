@@ -7,6 +7,7 @@
   align-items: flex-start;
   padding: 160px 20px 20px;
   background: rgba(0, 0, 0, 0.30);
+  animation: availability-backdrop-open 180ms ease-out;
 }
 
 .availability-popup__backdrop[hidden] {
@@ -22,6 +23,7 @@
   padding: 32px 40px 8px 40px;
   border-radius: 32px;
   background: var(--White, #FFF);
+  animation: availability-popup-open 240ms ease-out;
 }
 
 .availability-popup__header {
@@ -161,6 +163,28 @@
   border: 0;
   background: transparent;
   cursor: pointer;
+}
+
+@keyframes availability-backdrop-open {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes availability-popup-open {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 767px) {
