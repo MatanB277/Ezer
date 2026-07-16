@@ -115,6 +115,13 @@ const createAvailabilityPopup = () => {
         class: "availability-popup__notice-message",
         text: "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
       }),
+      $("<button>", {
+        class: "availability-popup__request-button",
+        type: "button",
+        text: "להגשת בקשה למוצר",
+        disabled: true,
+        hidden: true,
+      }),
     ),
   );
 
@@ -248,6 +255,11 @@ const initAvailabilityPopup = () => {
   const $popup = $backdrop.find(".availability-popup");
   const $closeButton = $backdrop.find(".availability-popup__close");
   const $productName = $backdrop.find(".availability-popup__product-name");
+  const $notice = $backdrop.find(".availability-popup__notice");
+  const $noticeIcon = $backdrop.find(".availability-popup__notice-icon");
+  const $noticeLabel = $backdrop.find(".availability-popup__notice-label");
+  const $noticeMessage = $backdrop.find(".availability-popup__notice-message");
+  const $requestButton = $backdrop.find(".availability-popup__request-button");
   const $branchesCount = $backdrop.find(".availability-popup__branches-count");
   const $branchesList = $backdrop.find(".availability-popup__branches-list");
   const $branchesScrollbar = $backdrop.find(".availability-popup__scrollbar");
@@ -268,6 +280,7 @@ const initAvailabilityPopup = () => {
     location: "",
     availability: [],
   };
+  let shouldIgnoreBranchFilters = false;
   let isLocationSelectOpen = false;
   let previouslyFocusedElement = null;
 
@@ -292,7 +305,10 @@ const initAvailabilityPopup = () => {
   };
 
   const renderBranches = () => {
-    const filteredBranches = filterBranches(branches, branchFilters);
+    const activeFilters = shouldIgnoreBranchFilters
+      ? { search: "", location: "", availability: [] }
+      : branchFilters;
+    const filteredBranches = filterBranches(branches, activeFilters);
     const hasBranches = filteredBranches.length > 0;
 
     $branchesCount.text(
@@ -391,6 +407,32 @@ const initAvailabilityPopup = () => {
     renderBranches();
   };
 
+  const updateAvailabilityNotice = (product) => {
+    const isLoanOnlyProduct = !product?.isCart && product?.isAvailable;
+
+    shouldIgnoreBranchFilters = isLoanOnlyProduct;
+    $popup.toggleClass("availability-popup--loan-only", isLoanOnlyProduct);
+
+    if (isLoanOnlyProduct) {
+      $notice.addClass("availability-popup__notice--warning");
+      $noticeIcon.attr("src", "assets/icons/warning.svg");
+      $noticeLabel.text("חשוב לדעת");
+      $noticeMessage.text(
+        "השאלה מותנית בהדרכה מקצועית ובאישור המחלקה · מלאי מצומצם",
+      );
+      $requestButton.prop("hidden", false);
+      return;
+    }
+
+    $notice.removeClass("availability-popup__notice--warning");
+    $noticeIcon.attr("src", "assets/icons/phone-brown.svg");
+    $noticeLabel.text("לפי ההגעה לסניף -");
+    $noticeMessage.text(
+      "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
+    );
+    $requestButton.prop("hidden", true);
+  };
+
   const closePopup = () => {
     setLocationSelectOpen(false);
     $backdrop.prop("hidden", true);
@@ -401,6 +443,8 @@ const initAvailabilityPopup = () => {
   const openPopup = (product) => {
     previouslyFocusedElement = document.activeElement;
     $productName.text(product?.name ?? "");
+    updateAvailabilityNotice(product);
+    renderBranches();
     $backdrop.prop("hidden", false);
     $(document.body).css("overflow", "hidden");
     requestAnimationFrame(updateBranchesScrollbar);

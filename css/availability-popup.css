@@ -77,7 +77,12 @@
 .availability-popup__notice-text {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
+}
+
+.availability-popup__notice--warning .availability-popup__notice-text {
+  gap: 8px;
 }
 
 .availability-popup__notice-label,
@@ -96,6 +101,27 @@
   font-weight: 400;
 }
 
+.availability-popup__request-button {
+  display: flex;
+  height: 36px;
+  margin-inline-start: 16px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #987E7F;
+  border-radius: 20px;
+  color: var(--Dark-Brown, #36080A);
+  background: transparent;
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20.8px;
+}
+
+.availability-popup__request-button[hidden] {
+  display: none;
+}
+
 .availability-popup__notice-icon {
   margin-left: 6px
 }
@@ -110,6 +136,11 @@
 
 .availability-popup__availability-filters {
   padding-bottom: 16px;
+}
+
+.availability-popup--loan-only .availability-popup__filters,
+.availability-popup--loan-only .availability-popup__availability-filters {
+  display: none;
 }
 
 .availability-popup__branches {
