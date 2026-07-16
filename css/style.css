@@ -16,6 +16,24 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Pil Kahol";
+  src: url("../assets/fonts/FtPilKahol2.woff2") format("woff2"),
+       url("../assets/fonts/FtPilKahol2.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rutz_OE";
+  src: url("../assets/fonts/Rutz_OE_regular_pro.woff") format("woff"),
+       url("../assets/fonts/Rutz_OE_regular_pro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -70,22 +88,4 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-@font-face {
-  font-family: "Pil Kahol";
-  src: url("../assets/fonts/FtPilKahol2.woff2") format("woff2"),
-       url("../assets/fonts/FtPilKahol2.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Rutz_OE";
-  src: url("../assets/fonts/Rutz_OE_regular_pro.woff") format("woff"),
-       url("../assets/fonts/Rutz_OE_regular_pro.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
 }
