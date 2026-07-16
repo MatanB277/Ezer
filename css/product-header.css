@@ -47,6 +47,6 @@
 
 @media (min-width: 1440px) {
   .product-header__inner {
-    padding-inline: 240px;
+    padding-inline: calc((100% - 1440px) / 2);
   }
 }

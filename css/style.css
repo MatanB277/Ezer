@@ -76,7 +76,8 @@ p {
 
 @media (min-width: 1440px) {
   .page-container {
-    padding: 32px 240px 80px;
+    padding-block: 32px 80px;
+    padding-inline: calc((100% - 1440px) / 2);
   }
 }
 
