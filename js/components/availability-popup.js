@@ -165,6 +165,26 @@ const createAvailabilityPopup = () => {
     }),
   );
 
+  const $branchesList = $("<div>", {
+    class: "availability-popup__branches-list",
+    tabindex: "0",
+    role: "region",
+    "aria-label": "רשימת סניפים",
+  }).append(branches.map(createBranchCard));
+
+  const $branchesScrollbar = $("<div>", {
+    class: "availability-popup__scrollbar",
+    "aria-hidden": "true",
+  }).append(
+    $("<span>", {
+      class: "availability-popup__scrollbar-thumb",
+    }),
+  );
+
+  const $branchesScrollArea = $("<div>", {
+    class: "availability-popup__branches-scroll-area",
+  }).append($branchesList);
+
   const $branchesContainer = $("<section>", {
     class: "availability-popup__branches",
     "aria-label": "סניפים",
@@ -173,9 +193,8 @@ const createAvailabilityPopup = () => {
       class: "availability-popup__branches-count",
       text: `נמצאו ${branches.length} סניפים`,
     }),
-    $("<div>", {
-      class: "availability-popup__branches-list",
-    }).append(branches.map(createBranchCard)),
+    $branchesScrollArea,
+    $branchesScrollbar,
   );
 
   const $popupContent = $("<div>", {
@@ -205,7 +224,32 @@ const initAvailabilityPopup = () => {
   const $popup = $backdrop.find(".availability-popup");
   const $closeButton = $backdrop.find(".availability-popup__close");
   const $productName = $backdrop.find(".availability-popup__product-name");
+  const $branchesList = $backdrop.find(".availability-popup__branches-list");
+  const $branchesScrollbar = $backdrop.find(".availability-popup__scrollbar");
+  const $branchesScrollbarThumb = $backdrop.find(
+    ".availability-popup__scrollbar-thumb",
+  );
   let previouslyFocusedElement = null;
+
+  const updateBranchesScrollbar = () => {
+    const listElement = $branchesList[0];
+
+    $branchesScrollbar.prop("hidden", false);
+
+    const scrollbarHeight = $branchesScrollbar.height();
+    const thumbHeight = Math.min(198, scrollbarHeight);
+    const maximumScroll = listElement.scrollHeight - listElement.clientHeight;
+    const maximumThumbMovement = scrollbarHeight - thumbHeight;
+    const thumbPosition = maximumScroll > 0
+      ? (listElement.scrollTop / maximumScroll) * maximumThumbMovement
+      : 0;
+
+    $branchesScrollbar.prop("hidden", maximumScroll <= 0);
+    $branchesScrollbarThumb.css({
+      height: `${thumbHeight}px`,
+      transform: `translateY(${thumbPosition}px)`,
+    });
+  };
 
   const closePopup = () => {
     $backdrop.prop("hidden", true);
@@ -218,6 +262,7 @@ const initAvailabilityPopup = () => {
     $productName.text(product?.name ?? "");
     $backdrop.prop("hidden", false);
     $(document.body).css("overflow", "hidden");
+    requestAnimationFrame(updateBranchesScrollbar);
     $closeButton[0]?.focus({ preventScroll: true });
   };
 
@@ -268,6 +313,8 @@ const initAvailabilityPopup = () => {
   $closeButton.on("click", closePopup);
   $backdrop.on("click", handleBackdropClick);
   $popup.on("keydown", handlePopupKeydown);
+  $branchesList.on("scroll", updateBranchesScrollbar);
+  $(window).on("resize.availabilityPopup", updateBranchesScrollbar);
 
   return {
     open: openPopup,

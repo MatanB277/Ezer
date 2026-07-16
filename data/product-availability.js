@@ -11,12 +11,12 @@ const productAvailability = [
   },
   {
     id: 3,
-    name: "ניתן להשאלה",
-    value: "available-for-loan",
+    name: "רכישה בסניפים",
+    value: "in-store-purchase",
   },
   {
     id: 4,
-    name: "רכישה בסניפים",
-    value: "in-store-purchase",
+    name: "ניתן להשאלה",
+    value: "available-for-loan",
   },
 ];

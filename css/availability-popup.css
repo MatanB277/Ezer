@@ -16,10 +16,12 @@
 
 .availability-popup {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 970px;
   max-width: 100%;
-  max-height: calc(100vh - 180px);
-  overflow-y: auto;
+  height: calc(100vh - 120px);
+  overflow: hidden;
   border-radius: 32px;
   background: var(--White, #FFF);
   transform-origin: top center;
@@ -27,6 +29,7 @@
 }
 
 .availability-popup__content {
+  flex-shrink: 0;
   padding: 32px 40px 0;
 }
 
@@ -110,6 +113,11 @@
 }
 
 .availability-popup__branches {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
   padding: 12px 40px;
   background: #F7F4F2;
 }
@@ -125,8 +133,42 @@
 .availability-popup__branches-list {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
   gap: 8px;
+  scrollbar-width: none;
+}
+
+.availability-popup__branches-list::-webkit-scrollbar {
+  display: none;
+}
+
+.availability-popup__branches-scroll-area {
+  position: relative;
+  flex-grow: 1;
+  min-height: 0;
   margin-top: 8px;
+}
+
+.availability-popup__scrollbar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  overflow: hidden;
+  background: rgba(234, 222, 210, 0.8);
+}
+
+.availability-popup__scrollbar[hidden] {
+  display: none;
+}
+
+.availability-popup__scrollbar-thumb {
+  display: block;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--Dark-Brown, #36080A);
 }
 
 .branch-card {
@@ -142,7 +184,7 @@
 .branch-card__details {
   display: flex;
   flex-direction: column;
-  width: 33.33%;
+  flex: 1;
 }
 
 .branch-card__city {
@@ -168,16 +210,17 @@
 }
 
 .branch-card__availability {
-  width: 33.33%;
+  display: flex;
+  flex: 1;
   justify-content: flex-start;
 }
 
 .branch-card__contact {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
-  width: 33.33%;
-  gap: 12px;
+  align-items: center;
+  flex: 1;
+  gap: 16px;
 }
 
 .branch-card__waze,
@@ -188,8 +231,22 @@
   text-decoration: none;
 }
 
+.branch-card__waze {
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  padding: 8px;
+  border: 1px solid #987E7F;
+  border-radius: 50%;
+}
+
 .branch-card__phone {
-  gap: 6px;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #987E7F;
+  border-radius: 38px;
+  background: var(--White, #FFF);
 }
 
 .branch-card__phone-number {
@@ -200,8 +257,8 @@
 
 .branch-card__contact-divider {
   width: 1px;
-  height: 24px;
-  background: var(--Beige, #EADED2);
+  height: 32px;
+  background: #E8E0DA;
 }
 
 .availability-popup__search {
@@ -292,7 +349,7 @@
   }
 
   .availability-popup {
-    max-height: calc(100vh - 32px);
+    height: calc(100vh - 32px);
     border-radius: 24px;
   }
 
