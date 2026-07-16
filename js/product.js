@@ -25,6 +25,8 @@ $(() => {
       initialText: product.name,
     });
 
+    $(".product-page__description").text(product.description);
+
     $(".product-page__availability").append(
       createProductAvailability(product.availability),
     );
