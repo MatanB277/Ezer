@@ -178,6 +178,7 @@ const initCartDropdown = ({
   const $totalPrice = $dropdown.find(".cart-dropdown__total-price");
   let isOpen = false;
   let autoCloseTimer = null;
+  let closeAnimationTimer = null;
 
   const clearAutoCloseTimer = () => {
     if (autoCloseTimer) {
@@ -206,14 +207,48 @@ const initCartDropdown = ({
     });
   };
 
-  const setOpen = (nextIsOpen) => {
-    isOpen = nextIsOpen;
-    $dropdown.prop("hidden", !isOpen);
-    onOpenChange(isOpen);
+  const clearCloseAnimationTimer = () => {
+    if (closeAnimationTimer) {
+      clearTimeout(closeAnimationTimer);
+      closeAnimationTimer = null;
+    }
+  };
+
+  const finishClosingDropdown = () => {
+    closeAnimationTimer = null;
 
     if (isOpen) {
-      requestAnimationFrame(updateCartScrollbar);
+      return;
     }
+
+    $dropdown
+      .prop("hidden", true)
+      .removeClass("cart-dropdown--opening cart-dropdown--closing");
+  };
+
+  const setOpen = (nextIsOpen) => {
+    if (nextIsOpen === isOpen) {
+      return isOpen;
+    }
+
+    isOpen = nextIsOpen;
+    clearCloseAnimationTimer();
+
+    if (isOpen) {
+      $dropdown
+        .prop("hidden", false)
+        .removeClass("cart-dropdown--closing cart-dropdown--opening");
+      void $dropdown[0].offsetWidth;
+      $dropdown.addClass("cart-dropdown--opening");
+      requestAnimationFrame(updateCartScrollbar);
+    } else {
+      $dropdown
+        .removeClass("cart-dropdown--opening")
+        .addClass("cart-dropdown--closing");
+      closeAnimationTimer = setTimeout(finishClosingDropdown, 180);
+    }
+
+    onOpenChange(isOpen);
 
     return isOpen;
   };
@@ -344,9 +379,15 @@ const initCartDropdown = ({
   };
 
   const openForNewProduct = (productId) => {
+    const wasAlreadyOpen = isOpen;
+
     clearAutoCloseTimer();
     setOpen(true);
     requestAnimationFrame(() => animateNewCartItem(productId));
+
+    if (wasAlreadyOpen) {
+      return;
+    }
 
     autoCloseTimer = setTimeout(() => {
       autoCloseTimer = null;
