@@ -163,13 +163,18 @@ const createProductCard = (product, quantity = 0) => {
 
   const $content = $("<div>", {
     class: "product-card__content",
-  }).append($title, $description, $availability, $price, $footer);
+  }).append($title, $description, $availability, $price);
+
+  const $productLink = $("<a>", {
+    class: "product-card__link",
+    href: `product.html?id=${product.id}`,
+    "aria-label": `פרטי המוצר: ${product.name}`,
+  }).append($image, $content);
 
   return $("<article>", {
     class: "product-card",
     "data-product-id": product.id,
-    "aria-labelledby": `product-title-${product.id}`,
-  }).append($image, $content);
+  }).append($productLink, $footer);
 };
 
 const createProductsSort = () => {
