@@ -51,6 +51,24 @@
   padding: 11px 8px 11px 16px;
 }
 
+.cart-dropdown__item--new {
+  animation: cart-dropdown-item-enter 360ms ease-out;
+}
+
+@keyframes cart-dropdown-item-enter {
+  from {
+    opacity: 0;
+    background-color: var(--Light-Beige, #F7F1ED);
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    background-color: transparent;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .cart-dropdown__item-image {
   width: 64px;
   height: 58px;

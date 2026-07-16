@@ -42,8 +42,8 @@ $(() => {
     onAvailabilityClick: (product) => {
       availabilityPopup.open(product);
     },
-    onProductAdded: () => {
-      cartDropdown.open();
+    onProductAdded: (product) => {
+      cartDropdown.openForNewProduct(product.id);
     },
     onCartChange: ({ price, count, items }) => {
       if (count === 0) {

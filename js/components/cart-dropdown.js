@@ -177,6 +177,14 @@ const initCartDropdown = ({
   const $scrollbarThumb = $dropdown.find(".cart-dropdown__scrollbar-thumb");
   const $totalPrice = $dropdown.find(".cart-dropdown__total-price");
   let isOpen = false;
+  let autoCloseTimer = null;
+
+  const clearAutoCloseTimer = () => {
+    if (autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
+  };
 
   const updateCartScrollbar = () => {
     const bodyElement = $body[0];
@@ -218,6 +226,7 @@ const initCartDropdown = ({
     );
 
   const handleCloseClick = () => {
+    clearAutoCloseTimer();
     setOpen(false);
     $container.children(".cart-button").trigger("focus");
   };
@@ -294,6 +303,7 @@ const initCartDropdown = ({
   };
 
   const openDropdown = () => {
+    clearAutoCloseTimer();
     const openState = setOpen(true);
     const closeButton = $dropdown.find(".cart-dropdown__close")[0];
 
@@ -301,10 +311,61 @@ const initCartDropdown = ({
     return openState;
   };
 
+  const scrollCartItemIntoView = (itemElement) => {
+    const bodyElement = $body[0];
+    const bodyBounds = bodyElement.getBoundingClientRect();
+    const itemBounds = itemElement.getBoundingClientRect();
+
+    if (itemBounds.top < bodyBounds.top) {
+      bodyElement.scrollTop -= bodyBounds.top - itemBounds.top;
+    } else if (itemBounds.bottom > bodyBounds.bottom) {
+      bodyElement.scrollTop += itemBounds.bottom - bodyBounds.bottom;
+    }
+  };
+
+  const playCartItemEnterAnimation = ($item) => {
+    $item.addClass("cart-dropdown__item--new");
+    $item.one("animationend", () => {
+      $item.removeClass("cart-dropdown__item--new");
+    });
+  };
+
+  const animateNewCartItem = (productId) => {
+    const $newItem = $body.find(`[data-product-id="${productId}"]`);
+    const itemElement = $newItem[0];
+
+    if (!itemElement) {
+      return;
+    }
+
+    scrollCartItemIntoView(itemElement);
+    playCartItemEnterAnimation($newItem);
+    updateCartScrollbar();
+  };
+
+  const openForNewProduct = (productId) => {
+    clearAutoCloseTimer();
+    setOpen(true);
+    requestAnimationFrame(() => animateNewCartItem(productId));
+
+    autoCloseTimer = setTimeout(() => {
+      autoCloseTimer = null;
+      setOpen(false);
+      $container.children(".cart-button").trigger("focus");
+    }, 1000);
+  };
+
   return {
-    toggle: () => setOpen(!isOpen),
+    toggle: () => {
+      clearAutoCloseTimer();
+      return setOpen(!isOpen);
+    },
     open: openDropdown,
-    close: () => setOpen(false),
+    openForNewProduct,
+    close: () => {
+      clearAutoCloseTimer();
+      return setOpen(false);
+    },
     setItems,
   };
 };
