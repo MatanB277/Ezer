@@ -20,6 +20,11 @@ $(() => {
   });
 
   if (product) {
+    initProductHeader({
+      selector: ".product-header__title",
+      initialText: product.name,
+    });
+
     $(".product-page__availability").append(
       createProductAvailability(product.availability),
     );
