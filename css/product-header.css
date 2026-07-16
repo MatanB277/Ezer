@@ -18,6 +18,7 @@
 
 .product-header__inner--cart-only {
   justify-content: flex-end;
+  padding-bottom: 0;
 }
 
 .product-header__heading {
