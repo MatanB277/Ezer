@@ -271,41 +271,86 @@
   position: relative;
   flex: 0 0 150px;
   width: 150px;
+}
+
+.availability-popup__location-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 16px;
   border: 1.5px solid var(--Dark-Brown, #36080A);
   border-radius: 20px;
   background-color: var(--White, #FFF);
-}
-
-.availability-popup__location-field {
-  width: 100%;
-  padding: 4px 16px;
-  border: 0;
-  outline: 0;
-  color: var(--Main-color-Lighter, #987E7F);
-  background: transparent;
-  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  appearance: none;
   cursor: pointer;
 }
 
-.availability-popup__location-select:focus-within {
+.availability-popup__location-selected-text {
+  overflow: hidden;
+  color: var(--Main-color-Lighter, #987E7F);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.availability-popup__location-trigger:focus-visible {
+  outline: 0;
   border-color: var(--Bordo, #AF1E24);
   box-shadow: 0 0 0 3px rgba(175, 30, 36, 0.1);
 }
 
 .availability-popup__location-arrow {
-  position: absolute;
-  top: 50%;
-  left: 16px;
+  display: flex;
+  flex-shrink: 0;
   pointer-events: none;
-  transform: translateY(-50%);
   transition: transform 160ms ease;
 }
 
-.availability-popup__location-field:open + .availability-popup__location-arrow {
-  transform: translateY(-50%) rotate(180deg);
+.availability-popup__location-select--open .availability-popup__location-arrow {
+  transform: rotate(180deg);
+}
+
+.availability-popup__location-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0px;
+  width: 100%;
+  border-radius: 12px;
+  background: var(--White, #FFF);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.availability-popup__location-options[hidden] {
+  display: none;
+}
+
+.availability-popup__location-option {
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  color: var(--Dark-Brown, #36080A);
+  background: transparent;
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 16px;
+  padding: 5px 16px 5px 0px;
+  line-height: 18px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.availability-popup__location-option:hover,
+.availability-popup__location-option:focus-visible,
+.availability-popup__location-option[aria-selected="true"] {
+  outline: 0;
+  background: var(--Light-Beige, #F7F1ED);
 }
 
 .availability-popup__close {

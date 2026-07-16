@@ -6,17 +6,17 @@ const locations = [
   },
   {
     id: 2,
-    name: "צפון",
+    name: "אזור צפון",
     value: "north",
   },
   {
     id: 3,
-    name: "מרכז",
+    name: "אזור מרכז",
     value: "center",
   },
   {
     id: 4,
-    name: "דרום",
+    name: "אזור דרום",
     value: "south",
   },
 ];

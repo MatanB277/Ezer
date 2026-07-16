@@ -123,16 +123,10 @@ const createAvailabilityPopup = () => {
     controls: "availability-popup-branches-list",
   }).addClass("availability-popup__search");
 
-  const $locationSelect = $("<select>", {
-    class: "availability-popup__location-field",
-    "aria-label": "סינון סניפים לפי אזור",
-    "aria-controls": "availability-popup-branches-list",
-  }).append(
-    locations.map((location) => $("<option>", {
-      value: location.value,
-      text: location.name,
-    })),
-  );
+  const $locationSelectedText = $("<span>", {
+    class: "availability-popup__location-selected-text",
+    text: locations[0].name,
+  });
 
   const $locationArrow = $("<span>", {
     class: "availability-popup__location-arrow",
@@ -144,9 +138,35 @@ const createAvailabilityPopup = () => {
     }),
   );
 
+  const $locationTrigger = $("<button>", {
+    class: "availability-popup__location-trigger",
+    type: "button",
+    "aria-label": "סינון סניפים לפי אזור",
+    "aria-haspopup": "listbox",
+    "aria-expanded": "false",
+    "aria-controls": "availability-popup-location-options",
+  }).append($locationSelectedText, $locationArrow);
+
+  const $locationOptions = $("<div>", {
+    id: "availability-popup-location-options",
+    class: "availability-popup__location-options",
+    role: "listbox",
+    "aria-controls": "availability-popup-branches-list",
+    hidden: true,
+  }).append(
+    locations.map((location, index) => $("<button>", {
+      class: "availability-popup__location-option",
+      type: "button",
+      role: "option",
+      "data-value": location.value,
+      "aria-selected": String(index === 0),
+      text: location.name,
+    })),
+  );
+
   const $locationSelectContainer = $("<div>", {
     class: "availability-popup__location-select",
-  }).append($locationSelect, $locationArrow);
+  }).append($locationTrigger, $locationOptions);
 
   const $filters = $("<div>", {
     class: "availability-popup__filters",
@@ -234,11 +254,21 @@ const initAvailabilityPopup = () => {
   const $branchesScrollbarThumb = $backdrop.find(
     ".availability-popup__scrollbar-thumb",
   );
+  const $locationSelect = $backdrop.find(".availability-popup__location-select");
+  const $locationTrigger = $backdrop.find(".availability-popup__location-trigger");
+  const $locationSelectedText = $backdrop.find(
+    ".availability-popup__location-selected-text",
+  );
+  const $locationOptions = $backdrop.find(".availability-popup__location-options");
+  const $locationOptionButtons = $backdrop.find(
+    ".availability-popup__location-option",
+  );
   const branchFilters = {
     search: "",
     location: "",
     availability: [],
   };
+  let isLocationSelectOpen = false;
   let previouslyFocusedElement = null;
 
   const updateBranchesScrollbar = () => {
@@ -283,9 +313,77 @@ const initAvailabilityPopup = () => {
     renderBranches();
   };
 
-  const handleLocationChange = (event) => {
-    branchFilters.location = $(event.currentTarget).val();
+  const setLocationSelectOpen = (isOpen) => {
+    isLocationSelectOpen = isOpen;
+    $locationSelect.toggleClass(
+      "availability-popup__location-select--open",
+      isOpen,
+    );
+    $locationTrigger.attr("aria-expanded", String(isOpen));
+    $locationOptions.prop("hidden", !isOpen);
+  };
+
+  const handleLocationTriggerClick = () => {
+    setLocationSelectOpen(!isLocationSelectOpen);
+  };
+
+  const handleLocationOptionClick = (event) => {
+    const $selectedOption = $(event.currentTarget);
+
+    branchFilters.location = $selectedOption.attr("data-value") || "";
+    $locationSelectedText.text($selectedOption.text());
+    $locationOptionButtons.attr("aria-selected", "false");
+    $selectedOption.attr("aria-selected", "true");
+    setLocationSelectOpen(false);
+    $locationTrigger.trigger("focus");
     renderBranches();
+  };
+
+  const handleLocationTriggerKeydown = (event) => {
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+      return;
+    }
+
+    event.preventDefault();
+    setLocationSelectOpen(true);
+
+    const selectedOption = $locationOptionButtons.filter(
+      '[aria-selected="true"]',
+    )[0];
+    selectedOption?.focus();
+  };
+
+  const handleLocationOptionKeydown = (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      setLocationSelectOpen(false);
+      $locationTrigger.trigger("focus");
+      return;
+    }
+
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+      return;
+    }
+
+    event.preventDefault();
+
+    const currentIndex = $locationOptionButtons.index(event.currentTarget);
+    const direction = event.key === "ArrowDown" ? 1 : -1;
+    const nextIndex = (
+      currentIndex + direction + $locationOptionButtons.length
+    ) % $locationOptionButtons.length;
+
+    $locationOptionButtons[nextIndex].focus();
+  };
+
+  const handleLocationOutsidePointerDown = (event) => {
+    if (
+      isLocationSelectOpen &&
+      !$(event.target).closest(".availability-popup__location-select").length
+    ) {
+      setLocationSelectOpen(false);
+    }
   };
 
   const handleBranchAvailabilityChange = (availabilityValues) => {
@@ -294,6 +392,7 @@ const initAvailabilityPopup = () => {
   };
 
   const closePopup = () => {
+    setLocationSelectOpen(false);
     $backdrop.prop("hidden", true);
     $(document.body).css("overflow", "");
     previouslyFocusedElement?.focus({ preventScroll: true });
@@ -317,6 +416,13 @@ const initAvailabilityPopup = () => {
   const handlePopupKeydown = (event) => {
     if (event.key === "Escape") {
       event.preventDefault();
+
+      if (isLocationSelectOpen) {
+        setLocationSelectOpen(false);
+        $locationTrigger.trigger("focus");
+        return;
+      }
+
       closePopup();
       return;
     }
@@ -328,7 +434,7 @@ const initAvailabilityPopup = () => {
     const $focusableElements = $popup.find(
       'button:not([disabled]):not([aria-disabled="true"]), ' +
       'a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled])',
-    );
+    ).filter(":visible");
     const firstElement = $focusableElements[0];
     const lastElement = $focusableElements[$focusableElements.length - 1];
 
@@ -363,10 +469,26 @@ const initAvailabilityPopup = () => {
     handleBranchSearchInput,
   );
   $backdrop.on(
-    "change",
-    ".availability-popup__location-field",
-    handleLocationChange,
+    "click",
+    ".availability-popup__location-trigger",
+    handleLocationTriggerClick,
   );
+  $backdrop.on(
+    "click",
+    ".availability-popup__location-option",
+    handleLocationOptionClick,
+  );
+  $backdrop.on(
+    "keydown",
+    ".availability-popup__location-trigger",
+    handleLocationTriggerKeydown,
+  );
+  $backdrop.on(
+    "keydown",
+    ".availability-popup__location-option",
+    handleLocationOptionKeydown,
+  );
+  $backdrop.on("pointerdown", handleLocationOutsidePointerDown);
   $branchesList.on("scroll", updateBranchesScrollbar);
   $(window).on("resize.availabilityPopup", updateBranchesScrollbar);
 
