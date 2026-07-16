@@ -1,4 +1,8 @@
-const createAvailabilityFilter = (availability, selectedValues) => {
+const createAvailabilityFilter = (
+  availability,
+  selectedValues,
+  controls,
+) => {
   const isAllFilter = availability.value === "";
   const isSelected = isAllFilter
     ? selectedValues.length === 0
@@ -10,7 +14,7 @@ const createAvailabilityFilter = (availability, selectedValues) => {
     text: availability.name,
     "data-value": availability.value,
     "aria-pressed": String(isSelected),
-    "aria-controls": "products-list",
+    ...(controls ? { "aria-controls": controls } : {}),
   });
 };
 
@@ -18,9 +22,10 @@ const renderAvailabilityFilters = (
   $availabilityList,
   availabilityItems,
   selectedValues,
+  controls,
 ) => {
   const filters = availabilityItems.map((availability) =>
-    createAvailabilityFilter(availability, selectedValues),
+    createAvailabilityFilter(availability, selectedValues, controls),
   );
 
   $availabilityList.empty().append(filters);
@@ -30,6 +35,7 @@ const initAvailabilityFilters = ({
   selector,
   availabilityItems,
   selectedValues = [],
+  controls = "products-list",
   onAvailabilityChange = () => {},
 }) => {
   const $availabilityList = $(selector);
@@ -40,6 +46,7 @@ const initAvailabilityFilters = ({
       $availabilityList,
       availabilityItems,
       currentValues,
+      controls,
     );
   };
 

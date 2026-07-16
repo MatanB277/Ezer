@@ -96,7 +96,7 @@ $(() => {
   });
 
   initAvailabilityFilters({
-    selector: ".availability-filters__list",
+    selector: "#product-availability-filters",
     availabilityItems: productAvailability,
     selectedValues: filters.availability,
     onAvailabilityChange: (availabilityValues) => {

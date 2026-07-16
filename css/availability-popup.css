@@ -99,6 +99,10 @@
   margin-bottom: 24px;
 }
 
+.availability-popup__availability-filters {
+  padding-bottom: 16px;
+}
+
 .availability-popup__search {
   flex: 0 1 300px;
   width: 300px;

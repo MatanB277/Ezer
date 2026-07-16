@@ -87,12 +87,26 @@ const createAvailabilityPopup = () => {
     class: "availability-popup__filters",
   }).append($branchSearch, $locationSelectContainer);
 
+  const $availabilityFilters = $("<section>", {
+    class: "availability-filters availability-popup__availability-filters",
+    "aria-labelledby": "availability-popup-filters-title",
+  }).append(
+    $("<h2>", {
+      id: "availability-popup-filters-title",
+      class: "availability-filters__title",
+      text: "זמינות מוצרים",
+    }),
+    $("<div>", {
+      class: "availability-filters__list availability-popup__availability-list",
+    }),
+  );
+
   const $popup = $("<div>", {
     class: "availability-popup",
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "availability-popup-title availability-popup-product-name",
-  }).append($header, $availabilityNotice, $filters);
+  }).append($header, $availabilityNotice, $filters, $availabilityFilters);
 
   return $("<div>", {
     class: "availability-popup__backdrop",
@@ -160,6 +174,11 @@ const initAvailabilityPopup = () => {
   };
 
   $(document.body).append($backdrop);
+  initAvailabilityFilters({
+    selector: $backdrop.find(".availability-popup__availability-list"),
+    availabilityItems: productAvailability,
+    controls: null,
+  });
   $closeButton.on("click", closePopup);
   $backdrop.on("click", handleBackdropClick);
   $popup.on("keydown", handlePopupKeydown);
