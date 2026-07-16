@@ -16,6 +16,10 @@
   padding: 16px 20px;
 }
 
+.product-header__inner--cart-only {
+  justify-content: flex-end;
+}
+
 .product-header__heading {
   display: flex;
   flex-direction: column;

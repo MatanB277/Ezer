@@ -148,39 +148,6 @@
   margin: 8px 0 12px 0;
 }
 
-.product-card__availability {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.product-card__availability-tag {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2px 6px;
-  border-radius: 40px;
-  text-align: center;
-  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
-  font-size: 16px;
-  line-height: 20.8px;
-}
-
-.product-card__availability-tag--online-purchase {
-  color: #2C52B0;
-  background: #EEF4FF;
-}
-
-.product-card__availability-tag--in-store-purchase {
-  color: #5E1E9E;
-  background: #F3EDFF;
-}
-
-.product-card__availability-tag--available-for-loan {
-  color: #AF1E24;
-  background: #FFF0E8;
-}
-
 .product-card__price {
   margin: 12px 0 0;
   color: var(--Dark-Brown, #36080A);

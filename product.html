@@ -5,8 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>מוצר | עזר מציון</title>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/product-header.css">
+  <link rel="stylesheet" href="./css/cart-button.css">
+  <link rel="stylesheet" href="./css/cart-dropdown.css">
+  <link rel="stylesheet" href="./css/product-availability.css">
 </head>
 <body>
-  <main class="page-container"></main>
+  <main>
+    <section class="product-header" aria-label="פעולות מוצר">
+      <div class="product-header__inner product-header__inner--cart-only">
+        <div class="product-header__cart"></div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <section
+        class="product-page__availability"
+        aria-label="זמינות המוצר"
+      ></section>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+  <script src="./data/product-availability.js"></script>
+  <script src="./data/products.js"></script>
+  <script src="./js/utils/cart.js"></script>
+  <script src="./js/components/cart-dropdown.js"></script>
+  <script src="./js/components/cart-button.js"></script>
+  <script src="./js/components/product-availability.js"></script>
+  <script src="./js/product.js"></script>
 </body>
 </html>
