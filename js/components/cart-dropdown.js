@@ -28,6 +28,19 @@ const createCartDropdown = () => {
     tabindex: 0,
   });
 
+  const $scrollbar = $("<div>", {
+    class: "cart-dropdown__scrollbar",
+    "aria-hidden": "true",
+  }).append(
+    $("<span>", {
+      class: "cart-dropdown__scrollbar-thumb",
+    }),
+  );
+
+  const $bodyContainer = $("<div>", {
+    class: "cart-dropdown__body-container",
+  }).append($body, $scrollbar);
+
   const $headerDivider = $("<hr>", {
     class: "cart-dropdown-header__divider",
   });
@@ -63,7 +76,7 @@ const createCartDropdown = () => {
     role: "dialog",
     "aria-labelledby": "cart-dropdown-title",
     hidden: true,
-  }).append($header, $headerDivider, $body, $total, $footer);
+  }).append($header, $headerDivider, $bodyContainer, $total, $footer);
 };
 
 const createCartDropdownQuantity = (item) => {
@@ -160,13 +173,39 @@ const initCartDropdown = ({
   const $container = $(selector);
   const $dropdown = createCartDropdown();
   const $body = $dropdown.find(".cart-dropdown__body");
+  const $scrollbar = $dropdown.find(".cart-dropdown__scrollbar");
+  const $scrollbarThumb = $dropdown.find(".cart-dropdown__scrollbar-thumb");
   const $totalPrice = $dropdown.find(".cart-dropdown__total-price");
   let isOpen = false;
+
+  const updateCartScrollbar = () => {
+    const bodyElement = $body[0];
+
+    $scrollbar.prop("hidden", false);
+
+    const scrollbarHeight = $scrollbar.height();
+    const thumbHeight = Math.min(74, scrollbarHeight);
+    const maximumScroll = bodyElement.scrollHeight - bodyElement.clientHeight;
+    const maximumThumbMovement = scrollbarHeight - thumbHeight;
+    const thumbPosition = maximumScroll > 0
+      ? (bodyElement.scrollTop / maximumScroll) * maximumThumbMovement
+      : 0;
+
+    $scrollbar.prop("hidden", maximumScroll <= 0);
+    $scrollbarThumb.css({
+      height: `${thumbHeight}px`,
+      transform: `translateY(${thumbPosition}px)`,
+    });
+  };
 
   const setOpen = (nextIsOpen) => {
     isOpen = nextIsOpen;
     $dropdown.prop("hidden", !isOpen);
     onOpenChange(isOpen);
+
+    if (isOpen) {
+      requestAnimationFrame(updateCartScrollbar);
+    }
 
     return isOpen;
   };
@@ -230,6 +269,8 @@ const initCartDropdown = ({
     ".cart-dropdown__quantity-decrease",
     handleQuantityDecrease,
   );
+  $body.on("scroll", updateCartScrollbar);
+  $(window).on("resize.cartDropdown", updateCartScrollbar);
 
   const setItems = (items) => {
     const content = [];
@@ -249,6 +290,7 @@ const initCartDropdown = ({
 
     $body.empty().append(content);
     $totalPrice.text(`${totalPrice.toLocaleString("he-IL")} ₪`);
+    requestAnimationFrame(updateCartScrollbar);
   };
 
   const openDropdown = () => {

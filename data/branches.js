@@ -2,6 +2,7 @@ const branches = [
   {
     id: 1,
     city: "חיפה",
+    location: "north",
     name: "סניף חיפה מרכז",
     street: "הרצל 24",
     availability: ["online-purchase", "available-for-loan", "in-store-purchase"],
@@ -10,6 +11,7 @@ const branches = [
   {
     id: 2,
     city: "נהריה",
+    location: "north",
     name: "סניף נהריה",
     street: "שדרות הגעתון 18",
     availability: ["available-for-loan", "in-store-purchase"],
@@ -18,6 +20,7 @@ const branches = [
   {
     id: 3,
     city: "עפולה",
+    location: "north",
     name: "סניף עפולה",
     street: "הנשיא ויצמן 7",
     availability: ["online-purchase", "in-store-purchase"],
@@ -26,6 +29,7 @@ const branches = [
   {
     id: 4,
     city: "תל אביב",
+    location: "center",
     name: "סניף תל אביב מרכז",
     street: "אבן גבירול 76",
     availability: ["online-purchase", "available-for-loan", "in-store-purchase"],
@@ -34,6 +38,7 @@ const branches = [
   {
     id: 5,
     city: "רמת גן",
+    location: "center",
     name: "סניף רמת גן",
     street: "ביאליק 42",
     availability: ["available-for-loan", "in-store-purchase"],
@@ -42,6 +47,7 @@ const branches = [
   {
     id: 6,
     city: "פתח תקווה",
+    location: "center",
     name: "סניף פתח תקווה",
     street: "חיים עוזר 15",
     availability: ["online-purchase", "in-store-purchase"],
@@ -50,6 +56,7 @@ const branches = [
   {
     id: 7,
     city: "ראשון לציון",
+    location: "center",
     name: "סניף ראשון לציון",
     street: "רוטשילד 31",
     availability: ["online-purchase", "available-for-loan", "in-store-purchase"],
@@ -58,6 +65,7 @@ const branches = [
   {
     id: 8,
     city: "ירושלים",
+    location: "center",
     name: "סניף ירושלים מרכז",
     street: "יפו 105",
     availability: ["available-for-loan", "in-store-purchase"],
@@ -66,6 +74,7 @@ const branches = [
   {
     id: 9,
     city: "אשדוד",
+    location: "south",
     name: "סניף אשדוד",
     street: "העצמאות 12",
     availability: ["online-purchase", "in-store-purchase"],
@@ -74,6 +83,7 @@ const branches = [
   {
     id: 10,
     city: "באר שבע",
+    location: "south",
     name: "סניף באר שבע מרכז",
     street: "רגר 28",
     availability: ["online-purchase", "available-for-loan", "in-store-purchase"],
@@ -82,6 +92,7 @@ const branches = [
   {
     id: 11,
     city: "אשקלון",
+    location: "south",
     name: "סניף אשקלון",
     street: "הרצל 9",
     availability: ["available-for-loan", "in-store-purchase"],
@@ -90,6 +101,7 @@ const branches = [
   {
     id: 12,
     city: "אילת",
+    location: "south",
     name: "סניף אילת",
     street: "שדרות התמרים 6",
     availability: ["online-purchase", "in-store-purchase"],

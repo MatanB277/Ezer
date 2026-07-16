@@ -120,12 +120,13 @@ const createAvailabilityPopup = () => {
 
   const $branchSearch = createSearchInput({
     placeholder: "חיפוש סניף",
-    controls: null,
+    controls: "availability-popup-branches-list",
   }).addClass("availability-popup__search");
 
   const $locationSelect = $("<select>", {
     class: "availability-popup__location-field",
     "aria-label": "סינון סניפים לפי אזור",
+    "aria-controls": "availability-popup-branches-list",
   }).append(
     locations.map((location) => $("<option>", {
       value: location.value,
@@ -166,11 +167,12 @@ const createAvailabilityPopup = () => {
   );
 
   const $branchesList = $("<div>", {
+    id: "availability-popup-branches-list",
     class: "availability-popup__branches-list",
     tabindex: "0",
     role: "region",
     "aria-label": "רשימת סניפים",
-  }).append(branches.map(createBranchCard));
+  });
 
   const $branchesScrollbar = $("<div>", {
     class: "availability-popup__scrollbar",
@@ -192,6 +194,8 @@ const createAvailabilityPopup = () => {
     $("<p>", {
       class: "availability-popup__branches-count",
       text: `נמצאו ${branches.length} סניפים`,
+      "aria-live": "polite",
+      "aria-atomic": "true",
     }),
     $branchesScrollArea,
     $branchesScrollbar,
@@ -224,11 +228,17 @@ const initAvailabilityPopup = () => {
   const $popup = $backdrop.find(".availability-popup");
   const $closeButton = $backdrop.find(".availability-popup__close");
   const $productName = $backdrop.find(".availability-popup__product-name");
+  const $branchesCount = $backdrop.find(".availability-popup__branches-count");
   const $branchesList = $backdrop.find(".availability-popup__branches-list");
   const $branchesScrollbar = $backdrop.find(".availability-popup__scrollbar");
   const $branchesScrollbarThumb = $backdrop.find(
     ".availability-popup__scrollbar-thumb",
   );
+  const branchFilters = {
+    search: "",
+    location: "",
+    availability: [],
+  };
   let previouslyFocusedElement = null;
 
   const updateBranchesScrollbar = () => {
@@ -249,6 +259,38 @@ const initAvailabilityPopup = () => {
       height: `${thumbHeight}px`,
       transform: `translateY(${thumbPosition}px)`,
     });
+  };
+
+  const renderBranches = () => {
+    const filteredBranches = filterBranches(branches, branchFilters);
+    const hasBranches = filteredBranches.length > 0;
+
+    $branchesCount.text(
+      hasBranches
+        ? `נמצאו ${filteredBranches.length} סניפים`
+        : "לא נמצאו סניפים",
+    );
+    $branchesList
+      .empty()
+      .append(filteredBranches.map(createBranchCard))
+      .scrollTop(0);
+
+    requestAnimationFrame(updateBranchesScrollbar);
+  };
+
+  const handleBranchSearchInput = (event) => {
+    branchFilters.search = $(event.currentTarget).val();
+    renderBranches();
+  };
+
+  const handleLocationChange = (event) => {
+    branchFilters.location = $(event.currentTarget).val();
+    renderBranches();
+  };
+
+  const handleBranchAvailabilityChange = (availabilityValues) => {
+    branchFilters.availability = availabilityValues;
+    renderBranches();
   };
 
   const closePopup = () => {
@@ -308,11 +350,23 @@ const initAvailabilityPopup = () => {
   initAvailabilityFilters({
     selector: $backdrop.find(".availability-popup__availability-list"),
     availabilityItems: productAvailability,
-    controls: null,
+    controls: "availability-popup-branches-list",
+    onAvailabilityChange: handleBranchAvailabilityChange,
   });
+  renderBranches();
   $closeButton.on("click", closePopup);
   $backdrop.on("click", handleBackdropClick);
   $popup.on("keydown", handlePopupKeydown);
+  $backdrop.on(
+    "input",
+    ".availability-popup__search .search-input__field",
+    handleBranchSearchInput,
+  );
+  $backdrop.on(
+    "change",
+    ".availability-popup__location-field",
+    handleLocationChange,
+  );
   $branchesList.on("scroll", updateBranchesScrollbar);
   $(window).on("resize.availabilityPopup", updateBranchesScrollbar);
 
