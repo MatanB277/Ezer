@@ -95,35 +95,7 @@ const createAvailabilityPopup = () => {
     class: "availability-popup__header",
   }).append($title, $titleDivider, $productName, $closeButton);
 
-  const $availabilityNotice = $("<div>", {
-    class: "availability-popup__notice",
-  }).append(
-    $("<img>", {
-      class: "availability-popup__notice-icon",
-      src: "assets/icons/phone-brown.svg",
-      alt: "",
-      "aria-hidden": "true",
-    }),
-    $("<div>", {
-      class: "availability-popup__notice-text",
-    }).append(
-      $("<span>", {
-        class: "availability-popup__notice-label",
-        text: "לפי ההגעה לסניף -",
-      }),
-      $("<span>", {
-        class: "availability-popup__notice-message",
-        text: "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
-      }),
-      $("<button>", {
-        class: "availability-popup__request-button",
-        type: "button",
-        text: "להגשת בקשה למוצר",
-        disabled: true,
-        hidden: true,
-      }),
-    ),
-  );
+  const $availabilityNotice = createAvailabilityNotice();
 
   const $branchSearch = createSearchInput({
     placeholder: "חיפוש סניף",
@@ -256,10 +228,6 @@ const initAvailabilityPopup = () => {
   const $closeButton = $backdrop.find(".availability-popup__close");
   const $productName = $backdrop.find(".availability-popup__product-name");
   const $notice = $backdrop.find(".availability-popup__notice");
-  const $noticeIcon = $backdrop.find(".availability-popup__notice-icon");
-  const $noticeLabel = $backdrop.find(".availability-popup__notice-label");
-  const $noticeMessage = $backdrop.find(".availability-popup__notice-message");
-  const $requestButton = $backdrop.find(".availability-popup__request-button");
   const $branchesCount = $backdrop.find(".availability-popup__branches-count");
   const $branchesList = $backdrop.find(".availability-popup__branches-list");
   const $branchesScrollbar = $backdrop.find(".availability-popup__scrollbar");
@@ -408,29 +376,10 @@ const initAvailabilityPopup = () => {
   };
 
   const updateAvailabilityNotice = (product) => {
-    const isLoanOnlyProduct = !product?.isCart && product?.isAvailable;
+    const loanOnly = setAvailabilityNoticeProduct($notice, product);
 
-    shouldIgnoreBranchFilters = isLoanOnlyProduct;
-    $popup.toggleClass("availability-popup--loan-only", isLoanOnlyProduct);
-
-    if (isLoanOnlyProduct) {
-      $notice.addClass("availability-popup__notice--warning");
-      $noticeIcon.attr("src", "assets/icons/warning.svg");
-      $noticeLabel.text("חשוב לדעת");
-      $noticeMessage.text(
-        "השאלה מותנית בהדרכה מקצועית ובאישור המחלקה · מלאי מצומצם",
-      );
-      $requestButton.prop("hidden", false);
-      return;
-    }
-
-    $notice.removeClass("availability-popup__notice--warning");
-    $noticeIcon.attr("src", "assets/icons/phone-brown.svg");
-    $noticeLabel.text("לפי ההגעה לסניף -");
-    $noticeMessage.text(
-      "יש להתקשר ולוודא זמינות, המלאי אינו מעודכן בזמן אמת.",
-    );
-    $requestButton.prop("hidden", true);
+    shouldIgnoreBranchFilters = loanOnly;
+    $popup.toggleClass("availability-popup--loan-only", loanOnly);
   };
 
   const closePopup = () => {

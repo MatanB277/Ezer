@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./css/cart-button.css">
   <link rel="stylesheet" href="./css/cart-dropdown.css">
   <link rel="stylesheet" href="./css/product-availability.css">
+  <link rel="stylesheet" href="./css/availability-notice.css">
   <link rel="stylesheet" href="./css/product.css">
 </head>
 <body>
@@ -20,26 +21,35 @@
     </section>
 
     <div class="page-container product-page__container">
-      <section
-        class="product-page__availability"
-        aria-label="זמינות המוצר"
-      ></section>
-
-      <div class="product-header__heading">
-        <h1
-          class="product-header__title"
-          aria-live="polite"
-          aria-atomic="true"
-        ></h1>
-        <img
-          class="product-header__line"
-          src="./assets/icons/horizontal-line.svg"
-          alt=""
-          aria-hidden="true"
+      <div class="product-page__content">
+        <section
+          class="product-page__details"
+          aria-labelledby="product-page-title"
         >
-      </div>
+          <div
+            class="product-page__availability"
+            aria-label="זמינות המוצר"
+          ></div>
 
-      <p class="product-page__description"></p>
+          <div class="product-header__heading">
+            <h1
+              id="product-page-title"
+              class="product-header__title"
+              aria-live="polite"
+              aria-atomic="true"
+            ></h1>
+            <img
+              class="product-header__line"
+              src="./assets/icons/horizontal-line.svg"
+              alt=""
+              aria-hidden="true"
+            >
+          </div>
+
+          <p class="product-page__description"></p>
+          <div class="product-page__notice"></div>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -51,6 +61,7 @@
   <script src="./js/components/cart-button.js"></script>
   <script src="./js/components/product-availability.js"></script>
   <script src="./js/components/product-header.js"></script>
+  <script src="./js/components/availability-notice.js"></script>
   <script src="./js/product.js"></script>
 </body>
 </html>

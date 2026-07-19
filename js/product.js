@@ -26,6 +26,9 @@ $(() => {
     });
 
     $(".product-page__description").text(product.description);
+    const $availabilityNotice = createAvailabilityNotice();
+    setAvailabilityNoticeProduct($availabilityNotice, product);
+    $(".product-page__notice").append($availabilityNotice);
 
     $(".product-page__availability").append(
       createProductAvailability(product.availability),

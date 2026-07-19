@@ -1,0 +1,64 @@
+.availability-popup__notice {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  padding: 14px 22px;
+  border: 1px solid rgba(195, 129, 0, 0.08);
+  border-radius: 12px;
+  background-color: #FFF4E0;
+}
+
+.availability-popup__notice-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.availability-popup__notice--warning .availability-popup__notice-text {
+  gap: 8px;
+}
+
+.availability-popup__notice-label,
+.availability-popup__notice-message {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.availability-popup__notice-label {
+  font-weight: bold;
+}
+
+.availability-popup__notice-message {
+  font-weight: 400;
+}
+
+.availability-popup__request-button {
+  display: flex;
+  height: 36px;
+  margin-inline-start: 16px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #987E7F;
+  border-radius: 20px;
+  color: var(--Dark-Brown, #36080A);
+  background: transparent;
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20.8px;
+}
+
+.availability-popup__request-button[hidden] {
+  display: none;
+}
+
+.availability-popup__notice-icon {
+  margin-left: 6px;
+}
