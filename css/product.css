@@ -25,6 +25,19 @@
   line-height: 26px;
 }
 
+.product-page__notice .availability-popup__notice {
+  margin-bottom: 0;
+}
+
+.product-page__price {
+  margin-top: 20px;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 32px;
+}
+
 @media (min-width: 1440px) {
   .product-page__content {
     flex-direction: row;

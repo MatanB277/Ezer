@@ -29,6 +29,9 @@ $(() => {
     const $availabilityNotice = createAvailabilityNotice();
     setAvailabilityNoticeProduct($availabilityNotice, product);
     $(".product-page__notice").append($availabilityNotice);
+    $(".product-page__price").text(
+      `מחיר: ${product.price.toLocaleString("he-IL")} ₪`,
+    );
 
     $(".product-page__availability").append(
       createProductAvailability(product.availability),
