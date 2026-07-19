@@ -96,6 +96,8 @@
   }
 
   .product-page__gallery {
+    position: sticky;
+    top: 74px;
     align-self: flex-start;
   }
 }
