@@ -11,12 +11,14 @@
   <link rel="stylesheet" href="./css/cart-dropdown.css">
   <link rel="stylesheet" href="./css/product-availability.css">
   <link rel="stylesheet" href="./css/product-actions.css">
+  <link rel="stylesheet" href="./css/products.css">
   <link rel="stylesheet" href="./css/availability-filters.css">
   <link rel="stylesheet" href="./css/availability-notice.css">
   <link rel="stylesheet" href="./css/availability-popup.css">
   <link rel="stylesheet" href="./css/technical-specifications.css">
   <link rel="stylesheet" href="./css/product-gallery.css">
   <link rel="stylesheet" href="./css/product-guides.css">
+  <link rel="stylesheet" href="./css/related-products.css">
   <link rel="stylesheet" href="./css/product.css">
 </head>
 <body>
@@ -66,6 +68,26 @@
         <div class="product-page__gallery"></div>
       </div>
     </div>
+
+    <section
+      class="related-products"
+      aria-labelledby="related-products-title"
+    >
+      <div class="related-products__inner">
+        <div class="related-products__heading">
+          <h2 id="related-products-title" class="related-products__title">
+            מוצרים נוספים שיכולים לעזור לך
+          </h2>
+          <img
+            class="product-header__line"
+            src="./assets/icons/horizontal-line.svg"
+            alt=""
+            aria-hidden="true"
+          >
+        </div>
+        <div class="products__list related-products__list"></div>
+      </div>
+    </section>
   </main>
 
   <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
@@ -79,6 +101,7 @@
   <script src="./js/components/cart-button.js"></script>
   <script src="./js/components/product-availability.js"></script>
   <script src="./js/components/product-actions.js"></script>
+  <script src="./js/components/product-card.js"></script>
   <script src="./js/components/product-header.js"></script>
   <script src="./js/components/search-input.js"></script>
   <script src="./js/components/availability-filters.js"></script>

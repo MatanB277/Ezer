@@ -3,14 +3,14 @@ $(() => {
     new URLSearchParams(window.location.search).get("id"),
   );
   const product = products.find((item) => item.id === productId);
+  const relatedProducts = products.slice(0, 4);
   const cart = createCartState();
   const $productActions = $(".product-page__actions");
+  const $relatedProductsList = $(".related-products__list");
   const availabilityPopup = initAvailabilityPopup();
   let cartButton;
 
-  if (product) {
-    cart.registerProducts([product]);
-  }
+  cart.registerProducts(products);
 
   const renderProductActions = () => {
     $productActions.empty();
@@ -28,8 +28,47 @@ $(() => {
     );
   };
 
-  const focusProductAction = (selector) => {
-    $productActions.find(selector)[0]?.focus({ preventScroll: true });
+  const renderRelatedProducts = () => {
+    const productCards = relatedProducts.map((relatedProduct) => {
+      return createProductCard(
+        relatedProduct,
+        cart.getQuantity(relatedProduct.id),
+      );
+    });
+
+    $relatedProductsList.empty().append(productCards);
+  };
+
+  const updateRelatedProductCartControl = (updatedProduct) => {
+    const $productCard = $relatedProductsList.find(
+      `[data-product-id="${updatedProduct.id}"]`,
+    );
+    const $currentControl = $productCard.find(
+      ".product-card__quantity-control, .product-card__add-to-cart-button",
+    );
+
+    if (!$currentControl.length) {
+      return;
+    }
+
+    const quantity = cart.getQuantity(updatedProduct.id);
+    const $nextControl = quantity > 0
+      ? createQuantityControl(updatedProduct, quantity)
+      : createAddToCartButton(updatedProduct);
+
+    $currentControl.replaceWith($nextControl);
+  };
+
+  const updateProductCartControls = (updatedProduct) => {
+    if (product?.id === updatedProduct.id) {
+      renderProductActions();
+    }
+
+    updateRelatedProductCartControl(updatedProduct);
+  };
+
+  const focusProductControl = ($container, selector) => {
+    $container.find(selector)[0]?.focus({ preventScroll: true });
   };
 
   const updateCartComponents = () => {
@@ -43,49 +82,75 @@ $(() => {
     cartButton.setCart(cartSummary);
   };
 
-  const increaseCartQuantity = () => {
-    const cartItem = cart.increase(product.id);
-
-    if (!cartItem) {
-      return;
-    }
-
-    renderProductActions();
+  const addProductToCart = (productToAdd) => {
+    cart.add(productToAdd);
+    updateProductCartControls(productToAdd);
     updateCartComponents();
-    focusProductAction(".product-card__quantity-add");
+    cartDropdown.openForNewProduct(productToAdd.id);
   };
 
-  const decreaseCartQuantity = () => {
-    const cartItem = cart.decrease(product.id);
+  const increaseCartQuantity = (productToIncrease, $focusContainer) => {
+    const cartItem = cart.increase(productToIncrease.id);
 
     if (!cartItem) {
       return;
     }
 
-    renderProductActions();
+    updateProductCartControls(productToIncrease);
     updateCartComponents();
-    focusProductAction(
-      ".product-card__quantity-decrease, .product-card__quantity-remove",
+
+    if ($focusContainer) {
+      focusProductControl($focusContainer, ".product-card__quantity-add");
+    }
+  };
+
+  const decreaseCartQuantity = (productToDecrease, $focusContainer) => {
+    const cartItem = cart.decrease(productToDecrease.id);
+
+    if (!cartItem) {
+      return;
+    }
+
+    updateProductCartControls(productToDecrease);
+    updateCartComponents();
+
+    if ($focusContainer) {
+      focusProductControl(
+        $focusContainer,
+        ".product-card__quantity-decrease, .product-card__quantity-remove",
+      );
+    }
+  };
+
+  const removeProductFromCart = (productToRemove, $focusContainer) => {
+    const cartItem = cart.remove(productToRemove.id);
+
+    if (!cartItem) {
+      return;
+    }
+
+    updateProductCartControls(productToRemove);
+    updateCartComponents();
+
+    if ($focusContainer) {
+      focusProductControl(
+        $focusContainer,
+        ".product-card__add-to-cart-button",
+      );
+    }
+  };
+
+  const getProductById = (id) =>
+    products.find((productItem) => productItem.id === id);
+
+  const getProductFromCardEvent = (event) => {
+    const id = Number(
+      $(event.currentTarget)
+        .closest(".product-card")
+        .attr("data-product-id"),
     );
-  };
 
-  const removeProductFromCart = () => {
-    const cartItem = cart.remove(product.id);
-
-    if (!cartItem) {
-      return;
-    }
-
-    renderProductActions();
-    updateCartComponents();
-    focusProductAction(".product-card__add-to-cart-button");
-  };
-
-  const addProductToCart = () => {
-    cart.add(product);
-    renderProductActions();
-    updateCartComponents();
-    cartDropdown.openForNewProduct(product.id);
+    return getProductById(id);
   };
 
   const cartDropdown = initCartDropdown({
@@ -93,9 +158,27 @@ $(() => {
     onOpenChange: (isOpen) => {
       cartButton?.setExpanded(isOpen);
     },
-    onQuantityIncrease: increaseCartQuantity,
-    onQuantityDecrease: decreaseCartQuantity,
-    onProductRemove: removeProductFromCart,
+    onQuantityIncrease: (id) => {
+      const cartProduct = getProductById(id);
+
+      if (cartProduct) {
+        increaseCartQuantity(cartProduct);
+      }
+    },
+    onQuantityDecrease: (id) => {
+      const cartProduct = getProductById(id);
+
+      if (cartProduct) {
+        decreaseCartQuantity(cartProduct);
+      }
+    },
+    onProductRemove: (id) => {
+      const cartProduct = getProductById(id);
+
+      if (cartProduct) {
+        removeProductFromCart(cartProduct);
+      }
+    },
   });
 
   cartButton = initCartButton({
@@ -108,26 +191,81 @@ $(() => {
   $productActions.on(
     "click",
     ".product-card__add-to-cart-button",
-    addProductToCart,
+    () => addProductToCart(product),
   );
-  $productActions.on(
-    "click",
-    ".product-card__quantity-add",
-    increaseCartQuantity,
-  );
-  $productActions.on(
-    "click",
-    ".product-card__quantity-decrease",
-    decreaseCartQuantity,
-  );
-  $productActions.on(
-    "click",
-    ".product-card__quantity-remove",
-    removeProductFromCart,
-  );
+  $productActions.on("click", ".product-card__quantity-add", () => {
+    increaseCartQuantity(product, $productActions);
+  });
+  $productActions.on("click", ".product-card__quantity-decrease", () => {
+    decreaseCartQuantity(product, $productActions);
+  });
+  $productActions.on("click", ".product-card__quantity-remove", () => {
+    removeProductFromCart(product, $productActions);
+  });
   $productActions.on("click", ".product-card__location-button", () => {
     availabilityPopup.open(product);
   });
+
+  $relatedProductsList.on(
+    "click",
+    ".product-card__add-to-cart-button",
+    (event) => {
+      const relatedProduct = getProductFromCardEvent(event);
+
+      if (relatedProduct) {
+        addProductToCart(relatedProduct);
+      }
+    },
+  );
+  $relatedProductsList.on("click", ".product-card__quantity-add", (event) => {
+    const relatedProduct = getProductFromCardEvent(event);
+
+    if (relatedProduct) {
+      increaseCartQuantity(
+        relatedProduct,
+        $(event.currentTarget).closest(".product-card"),
+      );
+    }
+  });
+  $relatedProductsList.on(
+    "click",
+    ".product-card__quantity-decrease",
+    (event) => {
+      const relatedProduct = getProductFromCardEvent(event);
+
+      if (relatedProduct) {
+        decreaseCartQuantity(
+          relatedProduct,
+          $(event.currentTarget).closest(".product-card"),
+        );
+      }
+    },
+  );
+  $relatedProductsList.on(
+    "click",
+    ".product-card__quantity-remove",
+    (event) => {
+      const relatedProduct = getProductFromCardEvent(event);
+
+      if (relatedProduct) {
+        removeProductFromCart(
+          relatedProduct,
+          $(event.currentTarget).closest(".product-card"),
+        );
+      }
+    },
+  );
+  $relatedProductsList.on(
+    "click",
+    ".product-card__location-button",
+    (event) => {
+      const relatedProduct = getProductFromCardEvent(event);
+
+      if (relatedProduct) {
+        availabilityPopup.open(relatedProduct);
+      }
+    },
+  );
 
   if (!product) {
     return;
@@ -160,4 +298,5 @@ $(() => {
   $(".product-page__guides").append(createProductGuides());
 
   renderProductActions();
+  renderRelatedProducts();
 });

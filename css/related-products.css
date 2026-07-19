@@ -1,0 +1,41 @@
+.related-products {
+  padding: 80px 20px;
+  background: #F7F4F2;
+}
+
+.related-products__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.related-products__title {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA", "Almoni Neue", sans-serif;
+  font-size: 32px;
+  line-height: 38px;
+}
+
+.related-products__list {
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .related-products {
+    padding-inline: 48px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .related-products {
+    padding-inline: 0;
+  }
+
+  .related-products__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+}
