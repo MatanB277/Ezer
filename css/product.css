@@ -38,6 +38,15 @@
   line-height: 32px;
 }
 
+.product-page__actions {
+  margin-top: 20px;
+}
+
+.product-card__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
 @media (min-width: 1440px) {
   .product-page__content {
     flex-direction: row;
