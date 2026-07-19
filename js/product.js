@@ -157,6 +157,7 @@ $(() => {
   $(".product-page__technical-specifications").append(
     createTechnicalSpecifications(product.technicalSpecifications),
   );
+  $(".product-page__guides").append(createProductGuides());
 
   renderProductActions();
 });
