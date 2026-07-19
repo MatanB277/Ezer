@@ -25,6 +25,10 @@
   line-height: 26px;
 }
 
+.product-page__notice {
+  margin: 20px 0px 20px 12px;
+}
+
 .product-page__notice .availability-popup__notice {
   margin-bottom: 0;
 }
@@ -55,6 +59,7 @@
 
   .product-page__details {
     width: auto;
+    max-width: 600px;
     flex-grow: 1;
   }
 
