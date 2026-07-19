@@ -1,0 +1,38 @@
+.technical-specifications__title {
+  margin: 0;
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 26px;
+}
+
+.technical-specifications__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.technical-specifications__item {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  gap: 4px;
+}
+
+.technical-specifications__value {
+  color: var(--Dark-Brown, #36080A);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.technical-specifications__label {
+  color: var(--Main-color-Lighter, #987E7F);
+  font-family: "Almoni Neue DL 4.0 AAA";
+  font-size: 16px;
+  line-height: 20px;
+}

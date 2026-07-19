@@ -2,6 +2,13 @@ const products = [
   {
     id: 1,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ORT-001" },
+      { label: "משקל", value: "650 גרם" },
+      { label: "מידות", value: "50 × 35 × 12 ס״מ" },
+      { label: "חומר", value: "קצף זיכרון ובד נושם" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 120,
@@ -14,6 +21,13 @@ const products = [
   {
     id: 2,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ORT-002" },
+      { label: "משקל", value: "420 גרם" },
+      { label: "מידות", value: "היקף 70–110 ס״מ" },
+      { label: "חומר", value: "ניאופרן ורשת אלסטית" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: false,
     isAvailable: true,
     price: 85,
@@ -26,6 +40,13 @@ const products = [
   {
     id: 3,
     maxQuantity: 6,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ORT-003" },
+      { label: "משקל", value: "180 גרם" },
+      { label: "מידות", value: "מידה אוניברסלית" },
+      { label: "חומר", value: "בד אלסטי נושם" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 60,
@@ -38,6 +59,13 @@ const products = [
   {
     id: 4,
     maxQuantity: 2,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ORT-004" },
+      { label: "משקל", value: "230 גרם" },
+      { label: "מידות", value: "מידה אוניברסלית" },
+      { label: "חומר", value: "ניאופרן ורצועות סקוץ׳" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: false,
     isAvailable: false,
     price: 110,
@@ -50,6 +78,13 @@ const products = [
   {
     id: 5,
     maxQuantity: 4,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-QOL-005" },
+      { label: "משקל", value: "780 גרם" },
+      { label: "מידות", value: "40 × 30 ס״מ" },
+      { label: "הספק", value: "60 ואט" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 140,
@@ -62,6 +97,13 @@ const products = [
   {
     id: 6,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-QOL-006" },
+      { label: "משקל", value: "3.2 ק״ג" },
+      { label: "מידות", value: "60 × 40 × 55–85 ס״מ" },
+      { label: "עומס מרבי", value: "15 ק״ג" },
+      { label: "זמן השאלה", value: "עד 3 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 95,
@@ -74,6 +116,13 @@ const products = [
   {
     id: 7,
     maxQuantity: 8,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-QOL-007" },
+      { label: "משקל", value: "190 גרם" },
+      { label: "מידות", value: "22 × 9 × 5 ס״מ" },
+      { label: "חומר", value: "פלסטיק מחוזק וגומי" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 35,
@@ -86,6 +135,13 @@ const products = [
   {
     id: 8,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-QOL-008" },
+      { label: "משקל", value: "520 גרם" },
+      { label: "מידות", value: "38 × 9 × 8 ס״מ" },
+      { label: "עוצמות", value: "3 דרגות" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 90,
@@ -98,6 +154,13 @@ const products = [
   {
     id: 9,
     maxQuantity: 4,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BTH-009" },
+      { label: "משקל", value: "4.8 ק״ג" },
+      { label: "מידות", value: "52 × 48 × 82 ס״מ" },
+      { label: "עומס מרבי", value: "120 ק״ג" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 220,
@@ -110,6 +173,13 @@ const products = [
   {
     id: 10,
     maxQuantity: 6,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BTH-010" },
+      { label: "משקל", value: "1.1 ק״ג" },
+      { label: "מידות", value: "אורך 45 ס״מ" },
+      { label: "עומס מרבי", value: "110 ק״ג" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 70,
@@ -122,6 +192,13 @@ const products = [
   {
     id: 11,
     maxQuantity: 2,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BTH-011" },
+      { label: "משקל", value: "2.4 ק״ג" },
+      { label: "מידות", value: "41 × 36 × 10 ס״מ" },
+      { label: "עומס מרבי", value: "130 ק״ג" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: false,
     isAvailable: false,
     price: 110,
@@ -134,6 +211,13 @@ const products = [
   {
     id: 12,
     maxQuantity: 7,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BTH-012" },
+      { label: "משקל", value: "900 גרם" },
+      { label: "מידות", value: "75 × 45 ס״מ" },
+      { label: "חומר", value: "גומי טבעי מונע החלקה" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 45,
@@ -146,6 +230,13 @@ const products = [
   {
     id: 13,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-HOM-013" },
+      { label: "משקל", value: "72 ק״ג" },
+      { label: "מידות", value: "210 × 100 × 40–80 ס״מ" },
+      { label: "עומס מרבי", value: "180 ק״ג" },
+      { label: "זמן השאלה", value: "עד 12 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 500,
@@ -158,6 +249,13 @@ const products = [
   {
     id: 14,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-HOM-014" },
+      { label: "משקל", value: "8.5 ק״ג" },
+      { label: "מידות", value: "80 × 40 × 70–105 ס״מ" },
+      { label: "עומס מרבי", value: "20 ק״ג" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 180,
@@ -170,6 +268,13 @@ const products = [
   {
     id: 15,
     maxQuantity: 4,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-HOM-015" },
+      { label: "משקל", value: "6.2 ק״ג" },
+      { label: "מידות", value: "200 × 90 × 12 ס״מ" },
+      { label: "חומר", value: "קצף רפואי רב־שכבתי" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: false,
     price: 320,
@@ -182,6 +287,13 @@ const products = [
   {
     id: 16,
     maxQuantity: 6,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-HOM-016" },
+      { label: "משקל", value: "3.6 ק״ג" },
+      { label: "מידות", value: "גובה 120–210 ס״מ" },
+      { label: "מספר גלגלים", value: "5" },
+      { label: "זמן השאלה", value: "עד 3 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 150,
@@ -194,6 +306,13 @@ const products = [
   {
     id: 17,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BIR-017" },
+      { label: "משקל", value: "1.1 ק״ג" },
+      { label: "מידות", value: "55 × 45 × 18 ס״מ" },
+      { label: "חומר", value: "כותנה ומילוי סיבים" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: false,
     isAvailable: true,
     price: 100,
@@ -206,6 +325,13 @@ const products = [
   {
     id: 18,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BIR-018" },
+      { label: "משקל", value: "1.4 ק״ג" },
+      { label: "מידות", value: "24 × 20 × 18 ס״מ" },
+      { label: "מקור מתח", value: "חשמל וסוללה נטענת" },
+      { label: "זמן השאלה", value: "עד 3 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 285,
@@ -218,6 +344,13 @@ const products = [
   {
     id: 19,
     maxQuantity: 8,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BIR-019" },
+      { label: "משקל", value: "1.3 ק״ג" },
+      { label: "מידות", value: "קוטר 65 ס״מ" },
+      { label: "עומס מרבי", value: "150 ק״ג" },
+      { label: "זמן השאלה", value: "עד 3 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 75,
@@ -230,6 +363,13 @@ const products = [
   {
     id: 20,
     maxQuantity: 4,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-BIR-020" },
+      { label: "משקל", value: "320 גרם" },
+      { label: "מידות", value: "היקף 75–115 ס״מ" },
+      { label: "חומר", value: "בד אלסטי נושם" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 125,
@@ -242,6 +382,13 @@ const products = [
   {
     id: 21,
     maxQuantity: 6,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ABS-021" },
+      { label: "משקל", value: "2.1 ק״ג לאריזה" },
+      { label: "מידה", value: "M, היקף 80–120 ס״מ" },
+      { label: "תכולה", value: "20 יחידות" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 65,
@@ -254,6 +401,13 @@ const products = [
   {
     id: 22,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ABS-022" },
+      { label: "משקל", value: "2.3 ק״ג לאריזה" },
+      { label: "מידה", value: "L, היקף 100–150 ס״מ" },
+      { label: "תכולה", value: "20 יחידות" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: false,
     price: 65,
@@ -266,6 +420,13 @@ const products = [
   {
     id: 23,
     maxQuantity: 7,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ABS-023" },
+      { label: "משקל", value: "1.8 ק״ג לאריזה" },
+      { label: "מידות", value: "60 × 90 ס״מ" },
+      { label: "תכולה", value: "30 יחידות" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: false,
     isAvailable: true,
     price: 40,
@@ -278,6 +439,13 @@ const products = [
   {
     id: 24,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-ABS-024" },
+      { label: "משקל", value: "1.6 ק״ג לאריזה" },
+      { label: "מידה", value: "M–L" },
+      { label: "תכולה", value: "14 יחידות" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 80,
@@ -290,6 +458,13 @@ const products = [
   {
     id: 25,
     maxQuantity: 4,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-025" },
+      { label: "משקל", value: "2.7 ק״ג" },
+      { label: "מידות", value: "58 × 48 × 78–96 ס״מ" },
+      { label: "עומס מרבי", value: "130 ק״ג" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 350,
@@ -302,6 +477,13 @@ const products = [
   {
     id: 26,
     maxQuantity: 3,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-026" },
+      { label: "משקל", value: "7.8 ק״ג" },
+      { label: "מידות", value: "65 × 60 × 82–98 ס״מ" },
+      { label: "עומס מרבי", value: "140 ק״ג" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 480,
@@ -314,6 +496,13 @@ const products = [
   {
     id: 27,
     maxQuantity: 2,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-027" },
+      { label: "משקל", value: "12.5 ק״ג" },
+      { label: "מידות", value: "105 × 62 × 92 ס״מ" },
+      { label: "עומס מרבי", value: "120 ק״ג" },
+      { label: "זמן השאלה", value: "עד 12 חודשים" },
+    ],
     isCart: false,
     isAvailable: false,
     price: 900,
@@ -326,6 +515,13 @@ const products = [
   {
     id: 28,
     maxQuantity: 8,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-028" },
+      { label: "משקל", value: "390 גרם" },
+      { label: "מידות", value: "גובה 72–95 ס״מ" },
+      { label: "עומס מרבי", value: "110 ק״ג" },
+      { label: "זמן השאלה", value: "לא זמין להשאלה" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 55,
@@ -338,6 +534,13 @@ const products = [
   {
     id: 29,
     maxQuantity: 5,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-029" },
+      { label: "משקל", value: "980 גרם לזוג" },
+      { label: "מידות", value: "גובה 96–120 ס״מ" },
+      { label: "עומס מרבי", value: "120 ק״ג" },
+      { label: "זמן השאלה", value: "עד 6 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 160,
@@ -350,6 +553,13 @@ const products = [
   {
     id: 30,
     maxQuantity: 2,
+    technicalSpecifications: [
+      { label: "מק״ט", value: "EZR-MOB-030" },
+      { label: "משקל", value: "27 ק״ג" },
+      { label: "מידות", value: "104 × 54 × 88 ס״מ" },
+      { label: "טווח נסיעה", value: "עד 18 ק״מ" },
+      { label: "זמן השאלה", value: "עד 12 חודשים" },
+    ],
     isCart: true,
     isAvailable: true,
     price: 2500,

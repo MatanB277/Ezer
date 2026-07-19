@@ -150,6 +150,9 @@ $(() => {
   $(".product-page__availability").append(
     createProductAvailability(product.availability),
   );
+  $(".product-page__technical-specifications").append(
+    createTechnicalSpecifications(product.technicalSpecifications),
+  );
 
   renderProductActions();
 });
