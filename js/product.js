@@ -139,6 +139,10 @@ $(() => {
   });
 
   $(".product-page__description").text(product.description);
+  initProductGallery({
+    selector: ".product-page__gallery",
+    product,
+  });
 
   const $availabilityNotice = createAvailabilityNotice();
   setAvailabilityNoticeProduct($availabilityNotice, product);

@@ -1,7 +1,26 @@
+const placeholderProductImage = "assets/images/product-image.png";
+
+const placeholderProductImageSets = {
+  one: [placeholderProductImage],
+  two: [placeholderProductImage, placeholderProductImage],
+  three: [
+    placeholderProductImage,
+    placeholderProductImage,
+    placeholderProductImage,
+  ],
+  four: [
+    placeholderProductImage,
+    placeholderProductImage,
+    placeholderProductImage,
+    placeholderProductImage,
+  ],
+};
+
 const products = [
   {
     id: 1,
     maxQuantity: 5,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ORT-001" },
       { label: "משקל", value: "650 גרם" },
@@ -21,6 +40,7 @@ const products = [
   {
     id: 2,
     maxQuantity: 3,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ORT-002" },
       { label: "משקל", value: "420 גרם" },
@@ -40,6 +60,7 @@ const products = [
   {
     id: 3,
     maxQuantity: 6,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ORT-003" },
       { label: "משקל", value: "180 גרם" },
@@ -59,6 +80,7 @@ const products = [
   {
     id: 4,
     maxQuantity: 2,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ORT-004" },
       { label: "משקל", value: "230 גרם" },
@@ -78,6 +100,7 @@ const products = [
   {
     id: 5,
     maxQuantity: 4,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-QOL-005" },
       { label: "משקל", value: "780 גרם" },
@@ -97,6 +120,7 @@ const products = [
   {
     id: 6,
     maxQuantity: 5,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-QOL-006" },
       { label: "משקל", value: "3.2 ק״ג" },
@@ -116,6 +140,7 @@ const products = [
   {
     id: 7,
     maxQuantity: 8,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-QOL-007" },
       { label: "משקל", value: "190 גרם" },
@@ -135,6 +160,7 @@ const products = [
   {
     id: 8,
     maxQuantity: 3,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-QOL-008" },
       { label: "משקל", value: "520 גרם" },
@@ -154,6 +180,7 @@ const products = [
   {
     id: 9,
     maxQuantity: 4,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BTH-009" },
       { label: "משקל", value: "4.8 ק״ג" },
@@ -173,6 +200,7 @@ const products = [
   {
     id: 10,
     maxQuantity: 6,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BTH-010" },
       { label: "משקל", value: "1.1 ק״ג" },
@@ -192,6 +220,7 @@ const products = [
   {
     id: 11,
     maxQuantity: 2,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BTH-011" },
       { label: "משקל", value: "2.4 ק״ג" },
@@ -211,6 +240,7 @@ const products = [
   {
     id: 12,
     maxQuantity: 7,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BTH-012" },
       { label: "משקל", value: "900 גרם" },
@@ -230,6 +260,7 @@ const products = [
   {
     id: 13,
     maxQuantity: 3,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-HOM-013" },
       { label: "משקל", value: "72 ק״ג" },
@@ -249,6 +280,7 @@ const products = [
   {
     id: 14,
     maxQuantity: 5,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-HOM-014" },
       { label: "משקל", value: "8.5 ק״ג" },
@@ -268,6 +300,7 @@ const products = [
   {
     id: 15,
     maxQuantity: 4,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-HOM-015" },
       { label: "משקל", value: "6.2 ק״ג" },
@@ -287,6 +320,7 @@ const products = [
   {
     id: 16,
     maxQuantity: 6,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-HOM-016" },
       { label: "משקל", value: "3.6 ק״ג" },
@@ -306,6 +340,7 @@ const products = [
   {
     id: 17,
     maxQuantity: 3,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BIR-017" },
       { label: "משקל", value: "1.1 ק״ג" },
@@ -325,6 +360,7 @@ const products = [
   {
     id: 18,
     maxQuantity: 5,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BIR-018" },
       { label: "משקל", value: "1.4 ק״ג" },
@@ -344,6 +380,7 @@ const products = [
   {
     id: 19,
     maxQuantity: 8,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BIR-019" },
       { label: "משקל", value: "1.3 ק״ג" },
@@ -363,6 +400,7 @@ const products = [
   {
     id: 20,
     maxQuantity: 4,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-BIR-020" },
       { label: "משקל", value: "320 גרם" },
@@ -382,6 +420,7 @@ const products = [
   {
     id: 21,
     maxQuantity: 6,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ABS-021" },
       { label: "משקל", value: "2.1 ק״ג לאריזה" },
@@ -401,6 +440,7 @@ const products = [
   {
     id: 22,
     maxQuantity: 3,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ABS-022" },
       { label: "משקל", value: "2.3 ק״ג לאריזה" },
@@ -420,6 +460,7 @@ const products = [
   {
     id: 23,
     maxQuantity: 7,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ABS-023" },
       { label: "משקל", value: "1.8 ק״ג לאריזה" },
@@ -439,6 +480,7 @@ const products = [
   {
     id: 24,
     maxQuantity: 5,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-ABS-024" },
       { label: "משקל", value: "1.6 ק״ג לאריזה" },
@@ -458,6 +500,7 @@ const products = [
   {
     id: 25,
     maxQuantity: 4,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-025" },
       { label: "משקל", value: "2.7 ק״ג" },
@@ -477,6 +520,7 @@ const products = [
   {
     id: 26,
     maxQuantity: 3,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-026" },
       { label: "משקל", value: "7.8 ק״ג" },
@@ -496,6 +540,7 @@ const products = [
   {
     id: 27,
     maxQuantity: 2,
+    images: placeholderProductImageSets.two,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-027" },
       { label: "משקל", value: "12.5 ק״ג" },
@@ -515,6 +560,7 @@ const products = [
   {
     id: 28,
     maxQuantity: 8,
+    images: placeholderProductImageSets.one,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-028" },
       { label: "משקל", value: "390 גרם" },
@@ -534,6 +580,7 @@ const products = [
   {
     id: 29,
     maxQuantity: 5,
+    images: placeholderProductImageSets.three,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-029" },
       { label: "משקל", value: "980 גרם לזוג" },
@@ -553,6 +600,7 @@ const products = [
   {
     id: 30,
     maxQuantity: 2,
+    images: placeholderProductImageSets.four,
     technicalSpecifications: [
       { label: "מק״ט", value: "EZR-MOB-030" },
       { label: "משקל", value: "27 ק״ג" },
